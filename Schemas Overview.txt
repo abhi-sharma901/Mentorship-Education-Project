@@ -1,0 +1,78 @@
+Admin
+- id
+- username
+- password
+- email
+
+Student 
+- student_id (primary key)
+- first_name
+- last_name
+- username
+- password
+- email
+- contact_number
+- previous_courses
+- previous_mentorships
+- payment_due
+
+Trainer 
+- trainer_id (primary key)
+- first_name
+- last_name
+- username
+- password
+- email
+- contact_number
+- available_from
+- cancellation_count
+- penalty
+
+Course
+- id (primary key)
+- course_name
+- course_description
+- start_date
+- end_date
+- course_duration
+- course_cost
+- installent_cost
+- trainer_id (foreign key references Trainer)
+
+Mentorship
+- id (primary key)
+- mentorship_name
+- mentorship_description
+- start_date
+- end_date
+- mentorship_duration
+- mentorship_cost
+- trainer_id (foreign key references Trainer)
+
+MentorshipRegistration
+- id (primary key)
+- student_id (foreign key references Student)
+- mentorship_id (foreign key references Mentorship)
+- trainer_id (foreign key references Trainer)
+- status
+- installment 
+- installment_number
+
+CourseRegistration
+- id (primary key)
+- student_id (foreign key references Student)
+- course_id (foreign key references Course)
+- trainer_id (foreign key references Trainer)
+- status 
+- installment 
+- installment_number
+
+Payment
+- id (primary key)
+- student_id (foreign key referencing student tables)
+- course_registration_id (foreign key references CourseRegistration)
+- mentorship_registration_id (foreign key references MentorshipRegistration)
+- transaction_id 
+- amount_paid
+- payment_date
+
