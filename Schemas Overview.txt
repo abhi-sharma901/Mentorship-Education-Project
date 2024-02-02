@@ -32,8 +32,6 @@ Course
 - id (primary key)
 - course_name
 - course_description
-- start_date
-- end_date
 - course_duration
 - course_cost
 - installment_cost
@@ -44,8 +42,6 @@ Mentorship
 - id (primary key)
 - mentorship_name
 - mentorship_description
-- start_date
-- end_date
 - mentorship_duration
 - mentorship_cost
 - installment_cost
@@ -57,7 +53,7 @@ MentorshipRegistration
 - student_id (foreign key references Student)
 - mentorship_id (foreign key references Mentorship)
 - status
-- installment 
+- installment (boolean)
 - installments_made
 
 CourseRegistration
@@ -75,5 +71,5 @@ Payment
 - mentorship_registration_id (foreign key references MentorshipRegistration)
 - transaction_id 
 - amount_paid
-- payment_timestamp
+- payment_date
 

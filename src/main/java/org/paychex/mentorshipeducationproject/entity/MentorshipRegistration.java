@@ -1,7 +1,10 @@
 package org.paychex.mentorshipeducationproject.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import org.paychex.mentorshipeducationproject.utils.MentorshipStatus;
 
 import java.util.Objects;
 
@@ -11,7 +14,8 @@ public class MentorshipRegistration {
     private long mentorshipRegistrationId;
     private long studentId;
     private long mentorshipId;
-    private String status;//PENDING, REGISTERED
+    @Enumerated(EnumType.STRING)
+    private MentorshipStatus status;// completed, in-progress
     private double installment;
     private int installmentsMade;
 
@@ -42,11 +46,11 @@ public class MentorshipRegistration {
         this.mentorshipId = mentorshipId;
     }
 
-    public String getStatus() {
+    public MentorshipStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(MentorshipStatus status) {
         this.status = status;
     }
 

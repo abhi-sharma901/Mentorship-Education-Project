@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import org.paychex.mentorshipeducationproject.utils.CourseStatus;
 
 import java.util.Objects;
 
@@ -14,8 +15,8 @@ public class CourseRegistration {
     private long courseRegistrationId;
     private long studentId;
     private long courseId;
-    private String status;//PENDING, REGISTERED
-    private double installment;
+    private CourseStatus status;
+    private boolean installment;
     private int installmentsMade;
 
     public CourseRegistration() {
@@ -45,19 +46,19 @@ public class CourseRegistration {
         this.courseId = courseId;
     }
 
-    public String getStatus() {
+    public CourseStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(CourseStatus status) {
         this.status = status;
     }
 
-    public double getInstallment() {
+    public boolean getInstallment() {
         return installment;
     }
 
-    public void setInstallment(double installment) {
+    public void setInstallment(boolean installment) {
         this.installment = installment;
     }
 
@@ -73,7 +74,7 @@ public class CourseRegistration {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof CourseRegistration that)) return false;
-        return courseRegistrationId == that.courseRegistrationId && studentId == that.studentId && courseId == that.courseId && Double.compare(installment, that.installment) == 0 && installmentsMade == that.installmentsMade && Objects.equals(status, that.status);
+        return courseRegistrationId == that.courseRegistrationId && studentId == that.studentId && courseId == that.courseId && Boolean.compare(installment, that.installment) == 0 && installmentsMade == that.installmentsMade && Objects.equals(status, that.status);
     }
 
     @Override
