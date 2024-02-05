@@ -1,133 +1,42 @@
 package org.paychex.mentorshipeducationproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.paychex.mentorshipeducationproject.utils.MentorshipStatus;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "Mentorship")
+@Table(name = "mentorship")
 public class Mentorship {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long  mentorshipId;
-    @Column(name = "trainer_id")
-    private long trainerId;
-    @Column(name = "mentorship_name")
+    @Column(name = "mentorship_id")
+    private Long  mentorshipId;
+    @Column(name = "trainer_id", nullable = false)
+    private Long trainerId;
+    @Column(name = "mentorship_name", nullable = false)
     private String mentorshipName;
-    @Column(name = "mentorship_description")
+    @Column(name = "mentorship_description", nullable = false)
     private String mentorshipDescription;
-    @Column(name = "start_date")
+    @Column(name = "start_date", columnDefinition = "DATE")
     private LocalDate startDate;
-    @Column(name = "end_date")
+    @Column(name = "end_date", columnDefinition = "DATE")
     private LocalDate endDate;
-    @Column(name = "mentorship_duration")
-    private float mentorshipDuration;
-    @Column(name = "mentorship_cost")
+    @Column(name = "mentorship_cost", nullable = false)
     private double mentorshipCost;
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private MentorshipStatus status;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "mentorship", cascade = CascadeType.ALL)
+    private Set<Student> students;
 
-    public Mentorship () {}
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "mentorship", cascade=CascadeType.ALL)
+    private Set<Payment> paymentList;
 
-    public Mentorship( long trainerId, String mentorshipName, String mentorshipDescription, LocalDate startDate, LocalDate endDate, float mentorshipDuration, double mentorshipCost) {
-        this.mentorshipId = mentorshipId;
-        this.trainerId = trainerId;
-        this.mentorshipName = mentorshipName;
-        this.mentorshipDescription = mentorshipDescription;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.mentorshipDuration = mentorshipDuration;
-        this.mentorshipCost = mentorshipCost;
-    }
 
-    public long getMentorshipId() {
-        return mentorshipId;
-    }
-
-    public void setMentorshipId(long mentorshipId) {
-        this.mentorshipId = mentorshipId;
-    }
-
-    public long getTrainerId() {
-        return trainerId;
-    }
-
-    public void setTrainerId(long trainerId) {
-        this.trainerId = trainerId;
-    }
-
-    public String getMentorshipName() {
-        return mentorshipName;
-    }
-
-    public void setMentorshipName(String mentorshipName) {
-        this.mentorshipName = mentorshipName;
-    }
-
-    public String getMentorshipDescription() {
-        return mentorshipDescription;
-    }
-
-    public void setMentorshipDescription(String mentorshipDescription) {
-        this.mentorshipDescription = mentorshipDescription;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
-    public float getMentorshipDuration() {
-        return mentorshipDuration;
-    }
-
-    public void setMentorshipDuration(float mentorshipDuration) {
-        this.mentorshipDuration = mentorshipDuration;
-    }
-
-    public double getMentorshipCost() {
-        return mentorshipCost;
-    }
-
-    public void setMentorshipCost(double mentorshipCost) {
-        this.mentorshipCost = mentorshipCost;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Mentorship that = (Mentorship) o;
-        return mentorshipId == that.mentorshipId && trainerId == that.trainerId && Float.compare(mentorshipDuration, that.mentorshipDuration) == 0 && Double.compare(mentorshipCost, that.mentorshipCost) == 0 && Objects.equals(mentorshipName, that.mentorshipName) && Objects.equals(mentorshipDescription, that.mentorshipDescription) && Objects.equals(startDate, that.startDate) && Objects.equals(endDate, that.endDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(mentorshipId, trainerId, mentorshipName, mentorshipDescription, startDate, endDate, mentorshipDuration, mentorshipCost);
-    }
-
-    @Override
-    public String toString() {
-        return "Mentorship{" +
-                "mentorshipId=" + mentorshipId +
-                ", trainerId=" + trainerId +
-                ", mentorshipName='" + mentorshipName + '\'' +
-                ", mentorshipDescription='" + mentorshipDescription + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", mentorshipDuration=" + mentorshipDuration +
-                ", mentorshipCost=" + mentorshipCost +
-                '}';
-    }
 }
 

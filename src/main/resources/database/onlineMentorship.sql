@@ -32,3 +32,31 @@ create table trainer(
                         penalty int default 0,
                         cancellation_count int default 0
 );
+
+create table course_registration(
+                                    course_registration_id long primary key,
+                                    student_id long not null,
+                                    course_id long not null,
+                                    course_status enum('COMPLETED','IN_PROGRESS'),
+                                    installment boolean not null,
+                                    installment_number int
+);
+
+create table mentorship_registration(
+                                        mentorship_registration_id long primary key,
+                                        student_id long not null,
+                                        mentorship_id long not null,
+                                        mentorship_status enum('COMPLETED','IN_PROGRESS'),
+                                        installment boolean not null,
+                                        installment_number int
+);
+
+create table payment(
+                        payment_id long primary key,
+                        student_id long not null,
+                        course_registration_id long,
+                        mentorship_registration_id long,
+                        transaction_id varchar(255) not null unique,
+                        amount_paid double(5,2) not null,
+                        payment_date date not null
+);

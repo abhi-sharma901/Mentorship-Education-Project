@@ -12,34 +12,34 @@ public class Trainer {
 
     @Id
     @Column(name = "trainer_id")
-    private long trainerId;
+    private Long trainerId;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false, unique = true)
     private String userName;
 
-    @Column(name = "contact_number")
+    @Column(name = "contact_number", nullable = false, unique = true)
     private String contactNumber;
 
-    @Column(name = "pass_word")
+    @Column(name = "pass_word", nullable = false, unique = true)
     private String password;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "available_from")
     private LocalDate availableFrom;
 
     @Column(name = "cancellation_count")
-    private int cancellationCount;
+    private Integer cancellationCount;
 
     @Column(name = "penalty")
-    private int penalty;
+    private Integer penalty;
 
     public Trainer(){
 
@@ -84,11 +84,11 @@ public class Trainer {
         return Objects.hash(trainerId, firstName, lastName, userName, contactNumber, password, email, availableFrom, cancellationCount, penalty);
     }
 
-    public long getTrainerId() {
+    public Long getTrainerId() {
         return trainerId;
     }
 
-    public void setTrainerId(long trainerId) {
+    public void setTrainerId(Long trainerId) {
         this.trainerId = trainerId;
     }
 
@@ -148,19 +148,19 @@ public class Trainer {
         this.availableFrom = availableFrom;
     }
 
-    public int getCancellationCount() {
+    public Integer getCancellationCount() {
         return cancellationCount;
     }
 
-    public void setCancellationCount(int cancellationCount) {
+    public void setCancellationCount(Integer cancellationCount) {
         this.cancellationCount = cancellationCount;
     }
 
-    public int getPenalty() {
+    public Integer getPenalty() {
         return penalty;
     }
 
-    public void setPenalty(int penalty) {
+    public void setPenalty(Integer penalty) {
         this.penalty = penalty;
     }
 

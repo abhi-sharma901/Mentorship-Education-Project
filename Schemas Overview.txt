@@ -32,40 +32,37 @@ Course
 - id (primary key)
 - course_name
 - course_description
-- start_date
-- end_date
 - course_duration
 - course_cost
-- installent_cost
+- installment_cost
+- number_of_installments
 - trainer_id (foreign key references Trainer)
 
 Mentorship
 - id (primary key)
 - mentorship_name
 - mentorship_description
-- start_date
-- end_date
 - mentorship_duration
 - mentorship_cost
+- installment_cost
+- number_of_installments
 - trainer_id (foreign key references Trainer)
 
 MentorshipRegistration
 - id (primary key)
 - student_id (foreign key references Student)
 - mentorship_id (foreign key references Mentorship)
-- trainer_id (foreign key references Trainer)
 - status
-- installment 
-- installment_number
+- installment (boolean)
+- installments_made
 
 CourseRegistration
 - id (primary key)
 - student_id (foreign key references Student)
 - course_id (foreign key references Course)
-- trainer_id (foreign key references Trainer)
 - status 
 - installment 
-- installment_number
+- installments_made
 
 Payment
 - id (primary key)
