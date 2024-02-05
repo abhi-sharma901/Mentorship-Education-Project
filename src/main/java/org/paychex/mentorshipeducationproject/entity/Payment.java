@@ -1,117 +1,170 @@
 package org.paychex.mentorshipeducationproject.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.Objects;
-//import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
-public class Payment {
+@Table(name = "payment")
+public class Payment
+{
     @Id
-    private long paymentId;
-    private long studentId;
-    private long courseRegistrationId;
-    private long mentorshipRegistrationId;
-    private String transactionId;
-    private double amount;
-    @Temporal(TemporalType.DATE)
-    private LocalDate payment_date;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "payment_id")
+    private Integer paymentId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_id")
+    @JsonIgnore
+    private Student student;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "course_id")
+    private Course course;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "mentorship_id")
+    private Mentorship mentorship;
+    @Column(name = "payment_amount")
+    private Double paymentAmount;
+    @Column(name = "is_full_paid")
+    private Boolean isFullPaid;
+    @Column(name = "total_bill")
+    private Double totalBill;
+    @Column(name = "amount_due")
+    private Double amountDue;
+    @Column(name = "payment_date", columnDefinition = "DATE")
+    private LocalDate paymentDate;
+    @OneToMany(mappedBy = "payment",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private Set<Installment> installmentList;
 
     public Payment() {
     }
 
-    public Payment(long paymentId, long studentId, long courseRegistrationId, long mentorshipRegistrationId, String transactionId, double amount, LocalDate payment_date) {
-        this.paymentId = paymentId;
-        this.studentId = studentId;
-        this.courseRegistrationId = courseRegistrationId;
-        this.mentorshipRegistrationId = mentorshipRegistrationId;
-        this.transactionId = transactionId;
-        this.amount = amount;
-        this.payment_date = payment_date;
+    public Payment(/*Student student, Course course, Mentorship mentorship,*/ Double paymentAmount,
+                   Boolean isFullPaid, Double totalBill, Double amountDue, LocalDate paymentDate,
+                   Set<Installment> installmentList) {
+//        this.student = student;
+//        this.course = course;
+//        this.mentorship = mentorship;
+        this.paymentAmount = paymentAmount;
+        this.isFullPaid = isFullPaid;
+        this.totalBill = totalBill;
+        this.amountDue = amountDue;
+        this.paymentDate = paymentDate;
+        this.installmentList = installmentList;
     }
 
-    public long getPaymentId() {
+    public Integer getPaymentId() {
         return paymentId;
     }
 
-    public void setPaymentId(long paymentId) {
+    public void setPaymentId(Integer paymentId) {
         this.paymentId = paymentId;
     }
 
-    public long getStudentId() {
-        return studentId;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStudentId(long studentId) {
-        this.studentId = studentId;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public long getCourseRegistrationId() {
-        return courseRegistrationId;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setCourseRegistrationId(long courseRegistrationId) {
-        this.courseRegistrationId = courseRegistrationId;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
-    public long getMentorshipRegistrationId() {
-        return mentorshipRegistrationId;
+    public Mentorship getMentorship() {
+        return mentorship;
     }
 
-    public void setMentorshipRegistrationId(long mentorshipRegistrationId) {
-        this.mentorshipRegistrationId = mentorshipRegistrationId;
+    public void setMentorship(Mentorship mentorship) {
+        this.mentorship = mentorship;
     }
 
-    public String getTransactionId() {
-        return transactionId;
+    public Double getPaymentAmount() {
+        return paymentAmount;
     }
 
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
+    public void setPaymentAmount(Double paymentAmount) {
+        this.paymentAmount = paymentAmount;
     }
 
-    public double getAmount() {
-        return amount;
+    public Boolean getFullPaid() {
+        return isFullPaid;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setFullPaid(Boolean fullPaid) {
+        isFullPaid = fullPaid;
     }
 
-    public LocalDate getPayment_date() {
-        return payment_date;
+    public Double getTotalBill() {
+        return totalBill;
     }
 
-    public void setPayment_date(LocalDate payment_date) {
-        this.payment_date = payment_date;
+    public void setTotalBill(Double totalBill) {
+        this.totalBill = totalBill;
+    }
+
+    public Double getAmountDue() {
+        return amountDue;
+    }
+
+    public void setAmountDue(Double amountDue) {
+        this.amountDue = amountDue;
+    }
+
+    public LocalDate getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(LocalDate paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
+    public Set<Installment> getInstallmentList() {
+        return installmentList;
+    }
+
+    public void setInstallmentList(Set<Installment> installmentList) {
+        this.installmentList = installmentList;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Payment payment)) return false;
-        return paymentId == payment.paymentId && studentId == payment.studentId && courseRegistrationId == payment.courseRegistrationId && mentorshipRegistrationId == payment.mentorshipRegistrationId && Double.compare(amount, payment.amount) == 0 && Objects.equals(transactionId, payment.transactionId) && Objects.equals(payment_date, payment.payment_date);
+        return Objects.equals(paymentId, payment.paymentId) && Objects.equals(student, payment.student)
+                && Objects.equals(course, payment.course) && Objects.equals(mentorship, payment.mentorship)
+                && Objects.equals(paymentAmount, payment.paymentAmount) && Objects.equals(isFullPaid, payment.isFullPaid)
+                && Objects.equals(totalBill, payment.totalBill) && Objects.equals(amountDue, payment.amountDue)
+                && Objects.equals(paymentDate, payment.paymentDate) && Objects.equals(installmentList, payment.installmentList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(paymentId, studentId, courseRegistrationId, mentorshipRegistrationId, transactionId, amount, payment_date);
+        return Objects.hash(paymentId, student, course, mentorship, paymentAmount,
+                isFullPaid, totalBill, amountDue, paymentDate, installmentList);
     }
 
     @Override
     public String toString() {
         return "Payment{" +
                 "paymentId=" + paymentId +
-                ", studentId=" + studentId +
-                ", courseRegistrationId=" + courseRegistrationId +
-                ", mentorshipRegistrationId=" + mentorshipRegistrationId +
-                ", transactionId='" + transactionId + '\'' +
-                ", amount=" + amount +
-                ", payment_date=" + payment_date +
+                ", student=" + student +
+                ", course=" + course +
+                ", mentorship=" + mentorship +
+                ", paymentAmount=" + paymentAmount +
+                ", isFullPaid=" + isFullPaid +
+                ", totalBill=" + totalBill +
+                ", amountDue=" + amountDue +
+                ", paymentDate=" + paymentDate +
+                ", installmentList=" + installmentList +
                 '}';
     }
 }

@@ -16,12 +16,6 @@ public class StudentService {
     private StudentRepository studentRepository;
 
     public Student createStudent(Student s){
-        Student student = studentRepository.findTopOneByOrderByStudentIdDesc();
-        long id = 1;
-        if(student != null){
-            id = student.getStudentId() + 1;
-        }
-        s.setStudentId(id);
         return studentRepository.save(s);
     }
 

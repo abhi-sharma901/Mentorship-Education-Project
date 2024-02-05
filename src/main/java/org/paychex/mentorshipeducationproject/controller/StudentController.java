@@ -1,6 +1,8 @@
 package org.paychex.mentorshipeducationproject.controller;
 
+import org.paychex.mentorshipeducationproject.entity.Payment;
 import org.paychex.mentorshipeducationproject.entity.Student;
+import org.paychex.mentorshipeducationproject.service.PaymentService;
 import org.paychex.mentorshipeducationproject.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private PaymentService paymentService;
 
     @PostMapping
     public Student createStudent(@RequestBody Student student){
@@ -49,6 +53,11 @@ public class StudentController {
       return ResponseEntity.ok(studentService.updateStudentPassword(student.getEmail(),student.getPassword()));
 
     }
+    @PostMapping("/{id}/payment")
+    public Payment makePayment(@RequestBody Payment p, @PathVariable Long id){
+        return paymentService.makePayment(p,id);
+    }
+
 
 //    @GetMapping("/showPreviousCourses/{email}")
 //    public String getStudentPreviousCourses(@PathVariable String email){
@@ -56,4 +65,6 @@ public class StudentController {
 //        return student.getPreviousCourses();
 //    }
 //
+
+
 }

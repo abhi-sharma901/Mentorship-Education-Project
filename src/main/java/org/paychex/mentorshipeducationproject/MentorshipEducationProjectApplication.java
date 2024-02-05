@@ -9,5 +9,5 @@ public class MentorshipEducationProjectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MentorshipEducationProjectApplication.class, args);
 	}
-
 }
+

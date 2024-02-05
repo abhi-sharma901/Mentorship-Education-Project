@@ -1,5 +1,5 @@
 package org.paychex.mentorshipeducationproject.utils;
 
 public enum CourseStatus {
-    COMPLETED, IN_PROGRESS
+    COMPLETED, IN_PROGRESS, NOT_STARTED
 }
