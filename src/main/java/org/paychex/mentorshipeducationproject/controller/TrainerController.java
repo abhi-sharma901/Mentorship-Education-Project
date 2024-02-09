@@ -19,6 +19,7 @@ public class TrainerController {
     public Trainer createTrainer(@RequestBody Trainer trainer){
         return TrainerService.createTrainer(trainer);
     }
+
     @GetMapping
     public List<Trainer> showTrainers(){
         return TrainerService.listAllTrainers();
@@ -35,19 +36,16 @@ public class TrainerController {
         if(trainer == null)
             throw new RuntimeException("No user found");
         return trainer;
-
     }
+
     @PutMapping("/updateTrainer")
-    public ResponseEntity<Integer> updateUserProfile(@RequestBody Trainer trainer)
-    {
+    public ResponseEntity<Integer> updateUserProfile(@RequestBody Trainer trainer) {
         return ResponseEntity.ok(TrainerService.updateTrainerDetails(trainer));
     }
 
     @PutMapping("/updateTrainerPassword")
-    public ResponseEntity<Integer> updateUserPassword(@RequestBody Trainer trainer)
-    {
+    public ResponseEntity<Integer> updateUserPassword(@RequestBody Trainer trainer) {
         return ResponseEntity.ok(TrainerService.updateTrainerPassword(trainer.getEmail(),trainer.getPassword()));
 
     }
-
 }

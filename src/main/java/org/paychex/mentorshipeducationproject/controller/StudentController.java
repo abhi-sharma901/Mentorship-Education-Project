@@ -16,6 +16,7 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
+
     @Autowired
     private PaymentService paymentService;
 
@@ -23,6 +24,7 @@ public class StudentController {
     public Student createStudent(@RequestBody Student student){
         return studentService.createStudent(student);
     }
+
     @GetMapping
     public List<Student> showStudents(){
         return studentService.listAllStudents();
@@ -39,8 +41,8 @@ public class StudentController {
         if(student == null)
              throw new RuntimeException("No user found");
         return student;
-
     }
+
     @PutMapping("/updateStudent")
     public ResponseEntity<Integer> updateUserProfile(@RequestBody Student student)
     {
@@ -53,18 +55,13 @@ public class StudentController {
       return ResponseEntity.ok(studentService.updateStudentPassword(student.getEmail(),student.getPassword()));
 
     }
-    @PostMapping("/{id}/payment")
-    public Payment makePayment(@RequestBody Payment p, @PathVariable Long id){
-        return paymentService.makePayment(p,id);
+    @PostMapping("/{sid}/{cid}/payment")
+    public Payment makePaymentForCourse(@RequestBody Payment p, @PathVariable Long sid,@PathVariable Long cid){
+        return paymentService.makePaymentForCourse(p,sid,cid);
     }
 
+    public Payment makePaymentWithInstallment(Payment p, Long sid, Long cid){
 
-//    @GetMapping("/showPreviousCourses/{email}")
-//    public String getStudentPreviousCourses(@PathVariable String email){
-//        Student student = studentService.findStudentByEmail(email);
-//        return student.getPreviousCourses();
-//    }
-//
-
-
+        return paymentService.makePaymentWithInstallment(p,sid,cid);
+    }
 }

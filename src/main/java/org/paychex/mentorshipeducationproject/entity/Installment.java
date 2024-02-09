@@ -26,10 +26,9 @@ public class Installment {
     public Installment() {
     }
 
-    public Installment(Double installmentAmount, LocalDate installmentDate, Payment payment) {
+    public Installment(Double installmentAmount, LocalDate installmentDate) {
         this.installmentAmount = installmentAmount;
         this.installmentDate = installmentDate;
-        this.payment = payment;
     }
 
     public Long getInstallmentId() {
