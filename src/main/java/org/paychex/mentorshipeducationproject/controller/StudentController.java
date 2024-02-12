@@ -20,27 +20,10 @@ public class StudentController {
     @Autowired
     private PaymentService paymentService;
 
-    @PostMapping
-    public Student createStudent(@RequestBody Student student){
-        return studentService.createStudent(student);
-    }
-
-    @GetMapping
-    public List<Student> showStudents(){
-        return studentService.listAllStudents();
-    }
-
     @GetMapping("/showStudent/{email}")
     public Student getStudentByEmail(@PathVariable String email){
+        System.out.println(studentService.findStudentByEmail(email).toString());
         return studentService.findStudentByEmail(email);
-    }
-
-    @GetMapping("/Login/{email}/{password}")
-    public Student getStudentByEmailAndPassword(@PathVariable String email, @PathVariable String password){
-        Student student = studentService.findStudentByEmailAndPassword(email,password);
-        if(student == null)
-             throw new RuntimeException("No user found");
-        return student;
     }
 
     @PutMapping("/updateStudent")
@@ -52,7 +35,7 @@ public class StudentController {
     @PutMapping("/updateStudentPassword")
     public ResponseEntity<Integer> updateUserPassword(@RequestBody Student student)
     {
-      return ResponseEntity.ok(studentService.updateStudentPassword(student.getEmail(),student.getPassword()));
+        return ResponseEntity.ok(studentService.updateStudentPassword(student.getEmail(),student.getPassword()));
 
     }
     @PostMapping("/{sid}/{cid}/payment")
@@ -64,4 +47,25 @@ public class StudentController {
 
         return paymentService.makePaymentWithInstallment(p,sid,cid);
     }
+
+    @GetMapping
+    public List<Student> showStudents(){
+        return studentService.listAllStudents();
+    }
+
+//
+//    @PostMapping
+//    public Student createStudent(@RequestBody Student student){
+//        return studentService.createStudent(student);
+//    }
+
+//    @GetMapping("/Login/{email}/{password}")
+//    public Student getStudentByEmailAndPassword(@PathVariable String email, @PathVariable String password){
+//        Student student = studentService.findStudentByEmailAndPassword(email,password);
+//        if(student == null)
+//             throw new RuntimeException("No user found");
+//        return student;
+//    }
+
+
 }

@@ -1,11 +1,9 @@
 package org.paychex.mentorshipeducationproject.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import org.paychex.mentorshipeducationproject.utils.MentorshipStatus;
-
 import java.time.LocalDate;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
