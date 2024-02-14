@@ -14,8 +14,6 @@ public interface TrainerRepository extends JpaRepository<Trainer, Long> {
 
     public Trainer findTopOneByOrderByTrainerIdDesc();
 
-    public Trainer findTrainerByUserName(String userName);
-
     public Boolean existsTrainersByEmail(String email);
 
     public Trainer findTrainerByEmail(String email);
@@ -28,6 +26,6 @@ public interface TrainerRepository extends JpaRepository<Trainer, Long> {
 
     @Modifying
     @Query(value = "update Trainer s set s.contact_number = :contactNumber, s.username= :userName where s.email=:email", nativeQuery = true)
-    public int updateTrainerDetails(@Param("email") String email, @Param("contactNumber") String contactNumber, @Param("userName") String userName);
+    public int updateTrainerDetails(@Param("email") String email, @Param("contactNumber") String contactNumber);
 
 }

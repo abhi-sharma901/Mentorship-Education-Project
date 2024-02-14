@@ -40,13 +40,13 @@ public class TrainerController {
         return trainerService.findTrainerByEmail(email);
     }
 
-    @GetMapping("/Login/{email}/{password}")
-    public Trainer getTrainerByEmailAndPassword(@PathVariable String email, @PathVariable String password){
-        Trainer trainer = trainerService.findTrainerByEmailAndPassword(email,password);
-        if(trainer == null)
-            throw new RuntimeException("No user found");
-        return trainer;
-    }
+//    @GetMapping("/Login/{email}/{password}")
+//    public Trainer getTrainerByEmailAndPassword(@PathVariable String email, @PathVariable String password){
+//        Trainer trainer = trainerService.findTrainerByEmailAndPassword(email,password);
+//        if(trainer == null)
+//            throw new RuntimeException("No user found");
+//        return trainer;
+//    }
 
     @PutMapping("/updateTrainer")
     public ResponseEntity<Integer> updateUserProfile(@RequestBody Trainer trainer) {

@@ -45,15 +45,15 @@ public class TrainerService {
     @Transactional
     public int updateTrainerDetails(Trainer trainer){
 
-        return trainerRepository.updateTrainerDetails(trainer.getEmail(),trainer.getContactNumber(),trainer.getUserName());
+        return trainerRepository.updateTrainerDetails(trainer.getEmail(),trainer.getContactNumber());
     }
 
     public Trainer findTrainerByEmail(String email){
-        return TrainerRepository.findTrainerByEmail(email);
+        return trainerRepository.findTrainerByEmail(email);
     }
 
     public Trainer assignCourseToTrainer(Long trainerId, Long courseId){
-        Trainer trainer = TrainerRepository.findTrainerByTrainerId(trainerId);
+        Trainer trainer = trainerRepository.findTrainerByTrainerId(trainerId);
         Course course = courseRepository.findCourseByCourseId(courseId);
         if(!trainer.getIsActive()){
             throw new RuntimeException("Trainer is not active");
@@ -61,11 +61,11 @@ public class TrainerService {
         course.setTrainer(trainer);
         trainer.getCourseList().add(course);
         trainer.setIsActive(false);
-        return TrainerRepository.save(trainer);
+        return trainerRepository.save(trainer);
     }
 
     public Trainer assignMentorshipToTrainer(Long trainerId, Long mentorshipId){
-        Trainer trainer = TrainerRepository.findTrainerByTrainerId(trainerId);
+        Trainer trainer = trainerRepository.findTrainerByTrainerId(trainerId);
         Mentorship mentorship = mentorshipRepository.findMentorshipByMentorshipId(mentorshipId);
         if(!trainer.getIsActive()){
             throw new RuntimeException("Trainer is not active");
@@ -73,6 +73,6 @@ public class TrainerService {
         mentorship.setTrainer(trainer);
         trainer.getMentorshipList().add(mentorship);
         trainer.setIsActive(false);
-        return TrainerRepository.save(trainer);
+        return trainerRepository.save(trainer);
     }
 }

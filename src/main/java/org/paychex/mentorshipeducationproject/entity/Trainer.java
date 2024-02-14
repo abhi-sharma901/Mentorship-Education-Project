@@ -28,9 +28,6 @@ public class Trainer {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "username", nullable = false, unique = true)
-    private String userName;
-
     @Column(name = "contact_number", nullable = false, unique = true)
     private String contactNumber;
 

@@ -67,10 +67,11 @@ public class CustomUserDetailsService implements UserDetailsService {
             SimpleGrantedAuthority trainerAuthority = new SimpleGrantedAuthority(UserType.TRAINER.toString());
             Collection<GrantedAuthority> authorities = new ArrayList<>();
             authorities.add(trainerAuthority);
-            return new User(trainer.getEmail(), trainer.getPassword(), authorities);
+            return new User(trainer.getEmail()
+                    , trainer.getPassword(),
+                    authorities);
         }
         else if(userType == UserType.STUDENT) {
-
             Student student = studentRepository.findStudentByEmail(username);
                     if(student.equals(null)){
                         throw( new UsernameNotFoundException("Student Email "+ username+ "not found"));
