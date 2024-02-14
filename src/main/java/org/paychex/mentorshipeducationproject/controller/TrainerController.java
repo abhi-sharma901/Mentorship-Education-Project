@@ -79,4 +79,11 @@ public class TrainerController {
         return trainerService.assignMentorshipToTrainer(tid,mid);
     }
 
+//    @GetMapping("/Login/{email}/{password}")
+//    public Trainer getTrainerByEmailAndPassword(@PathVariable String email, @PathVariable String password){
+//        Trainer trainer = TrainerService.findTrainerByEmailAndPassword(email,password);
+//        if(trainer == null)
+//            throw new RuntimeException("No user found");
+//        return trainer;
+//    }
 }
