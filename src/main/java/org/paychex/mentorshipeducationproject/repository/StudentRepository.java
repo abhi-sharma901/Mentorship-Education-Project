@@ -15,13 +15,14 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     public Student findTopOneByOrderByStudentIdDesc();
 
     public Student findStudentByUserName(String userName);
+    public Boolean existsStudentByEmail(String email);
 
     public Student findStudentByEmail(String email);
 
     public Student findByEmailAndPassword(String email, String password);
 
     @Modifying
-    @Query(value= "update Student s set s.pass_word =:password where s.email=:email", nativeQuery = true)
+    @Query(value= "update Student s set s.password =:password where s.email=:email", nativeQuery = true)
     public int updateStudentPassword(@Param("email") String email, @Param("password") String password);
 
     @Modifying

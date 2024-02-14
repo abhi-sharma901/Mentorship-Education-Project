@@ -26,27 +26,18 @@ public class StudentController {
     @Autowired
     private CourseService courseService;
 
-    @PostMapping
-    public Student createStudent(@RequestBody Student student){
-        return studentService.createStudent(student);
-    }
+//     @PostMapping
+//     public Student createStudent(@RequestBody Student student){
+//         return studentService.createStudent(student);
+//     }
 
     @GetMapping
     public List<Student> showStudents(){
         return studentService.listAllStudents();
     }
-
     @GetMapping("/showStudent/{email}")
     public Student getStudentByEmail(@PathVariable String email){
         return studentService.findStudentByEmail(email);
-    }
-
-    @GetMapping("/Login/{email}/{password}")
-    public Student getStudentByEmailAndPassword(@PathVariable String email, @PathVariable String password){
-        Student student = studentService.findStudentByEmailAndPassword(email,password);
-        if(student == null)
-             throw new RuntimeException("No user found");
-        return student;
     }
 
     @PutMapping("/updateStudent")
@@ -58,7 +49,7 @@ public class StudentController {
     @PutMapping("/updateStudentPassword")
     public ResponseEntity<Integer> updateUserPassword(@RequestBody Student student)
     {
-      return ResponseEntity.ok(studentService.updateStudentPassword(student.getEmail(),student.getPassword()));
+        return ResponseEntity.ok(studentService.updateStudentPassword(student.getEmail(),student.getPassword()));
 
     }
     @PostMapping("/course/{sid}/{cid}/payment")
@@ -75,10 +66,10 @@ public class StudentController {
     public Course viewCourse(Long cid){
         return courseService.findCourseByCourseId(cid);
     }
+  
+    @GetMapping
+    public List<Student> showStudents(){
+        return studentService.listAllStudents();
+    }
 
-    //mentorship
-
-//    public ResponseEntity<String> enrollNewCourse(Long sid,Long cid){
-//        return ResponseEntity.ok(courseService.enrollNewCourse(sid,cid));
-//    }
 }

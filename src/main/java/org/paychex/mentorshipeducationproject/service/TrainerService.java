@@ -16,7 +16,7 @@ import java.util.List;
 public class TrainerService {
 
     @Autowired
-    private TrainerRepository TrainerRepository;
+    private TrainerRepository trainerRepository;
 
     @Autowired
     private CourseRepository courseRepository;
@@ -25,33 +25,27 @@ public class TrainerService {
     private MentorshipRepository mentorshipRepository;
 
     public Trainer createTrainer(Trainer t){
-        Trainer trainer = TrainerRepository.findTopOneByOrderByTrainerIdDesc();
-        long id = 1;
-        if(trainer != null){
-            id = trainer.getTrainerId() + 1;
-        }
-        t.setTrainerId(id);
-        return TrainerRepository.save(t);
+        return trainerRepository.save(t);
     }
 
     public List<Trainer> listAllTrainers(){
-        return TrainerRepository.findAll();
+        return trainerRepository.findAll();
     }
 
-    public Trainer findTrainerByEmailAndPassword(String email, String password){
-        return TrainerRepository.findByEmailAndPassword(email,password);
+    public Boolean checkTrainerExistsByEmail(String email){
+        return trainerRepository.existsTrainersByEmail(email);
     }
 
 
     @Transactional
     public int updateTrainerPassword(String email, String password){
-        return TrainerRepository.updateTrainerPassword(email,password);
+        return trainerRepository.updateTrainerPassword(email,password);
     }
 
     @Transactional
     public int updateTrainerDetails(Trainer trainer){
 
-        return TrainerRepository.updateTrainerDetails(trainer.getEmail(),trainer.getContactNumber(),trainer.getUserName());
+        return trainerRepository.updateTrainerDetails(trainer.getEmail(),trainer.getContactNumber(),trainer.getUserName());
     }
 
     public Trainer findTrainerByEmail(String email){

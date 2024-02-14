@@ -62,6 +62,8 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name = "course_id"))
     private Set<Course> course = new HashSet<>();
 
+
+
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private Set<Mentorship> mentorshipList;
 
