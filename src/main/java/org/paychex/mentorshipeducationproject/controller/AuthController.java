@@ -14,12 +14,15 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
+
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api")
 public class AuthController {
@@ -62,7 +65,7 @@ public class AuthController {
      * @return
      */
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto){
+    public ResponseEntity<?> login(@RequestBody LoginDto loginDto){
         System.out.println("Login");
         customUserDetailsService.setUserType(loginDto.getUsertype());
 
@@ -72,9 +75,10 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtGenerator.generateToken(authentication, loginDto.getUsertype().toString());
         System.out.println("TOKEN "+token);
-        return new ResponseEntity<>("login successful !! "+ token, HttpStatus.OK);
-
+        return new ResponseEntity<>(new JwtResponse(token,loginDto.getEmail()), HttpStatus.OK);
     }
+
+
 
     /**
      * Controller to register the student
@@ -82,7 +86,7 @@ public class AuthController {
      * @return
      */
     @PostMapping("/studentRegister")
-    public ResponseEntity<String> studentRegister(@RequestBody Student student) {
+    public ResponseEntity<?> studentRegister(@RequestBody Student student) {
         System.out.println("StudentRegister");
         if(studentService.checkStudentExists(student.getEmail())) {
             return new ResponseEntity<>("Email is already registered !!", HttpStatus.BAD_REQUEST);
@@ -90,7 +94,8 @@ public class AuthController {
         student.setPassword(passwordEncoder.encode(student.getPassword()));
         student.setStatus(true);
         studentService.createStudent(student);
-        return new ResponseEntity<>("Profile Created Successfully !!", HttpStatus.OK);
+        System.out.println("Profile Created Successfully !!");
+        return new ResponseEntity<>(new JwtResponse(), HttpStatus.OK);
     }
 
     /***
@@ -109,6 +114,14 @@ public class AuthController {
         trainerService.createTrainer(trainer);
         return new ResponseEntity<>("Profile Created Successfully !!", HttpStatus.OK);
     }
+
+    @GetMapping("/currentUser")
+    public User getCurrentUer(Principal principal){
+        System.out.println("Getting current User");
+        return (User)(this.customUserDetailsService.loadUserByUsername(principal.getName()));
+    }
+
+
 
 //    @PostMapping("/studentLogin")
 //    public ResponseEntity<String> studentLogin(@RequestBody LoginDto loginDto) {

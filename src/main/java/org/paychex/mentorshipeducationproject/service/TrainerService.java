@@ -45,7 +45,7 @@ public class TrainerService {
     @Transactional
     public int updateTrainerDetails(Trainer trainer){
 
-        return trainerRepository.updateTrainerDetails(trainer.getEmail(),trainer.getContactNumber(),trainer.getUserName());
+        return trainerRepository.updateTrainerDetails(trainer.getEmail(),trainer.getContactNumber());
     }
 
     public Trainer findTrainerByEmail(String email){

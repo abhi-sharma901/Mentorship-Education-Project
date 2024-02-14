@@ -14,7 +14,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     public Student findTopOneByOrderByStudentIdDesc();
 
-    public Student findStudentByUserName(String userName);
     public Boolean existsStudentByEmail(String email);
 
     public Student findStudentByEmail(String email);
@@ -26,6 +25,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     public int updateStudentPassword(@Param("email") String email, @Param("password") String password);
 
     @Modifying
-    @Query(value= "update Student s set s.contact_number = :contactNumber, s.username= :userName where s.email=:email", nativeQuery = true)
-    public int updateStudentDetails(@Param("email") String email,@Param("contactNumber") String contactNumber, @Param("userName") String userName);
+    @Query(value= "update Student s set s.contact_number = :contactNumber where s.email=:email", nativeQuery = true)
+    public int updateStudentDetails(@Param("email") String email,@Param("contactNumber") String contactNumber);
 }

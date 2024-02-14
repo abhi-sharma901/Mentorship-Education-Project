@@ -41,7 +41,7 @@ public class StudentService {
     @Transactional
     public int updateStudentDetails(Student student){
 
-       return studentRepository.updateStudentDetails(student.getEmail(),student.getContactNumber(),student.getUserName());
+       return studentRepository.updateStudentDetails(student.getEmail(),student.getContactNumber());
     }
 
     public Student findStudentByEmail(String email){

@@ -66,7 +66,5 @@ public class StudentController {
     public Course viewCourse(Long cid){
         return courseService.findCourseByCourseId(cid);
     }
-  
-
 
 }
