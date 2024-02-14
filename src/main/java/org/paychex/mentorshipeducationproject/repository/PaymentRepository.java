@@ -1,6 +1,7 @@
 package org.paychex.mentorshipeducationproject.repository;
 
 import org.paychex.mentorshipeducationproject.entity.Course;
+import org.paychex.mentorshipeducationproject.entity.Mentorship;
 import org.paychex.mentorshipeducationproject.entity.Payment;
 import org.paychex.mentorshipeducationproject.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +14,8 @@ import java.util.List;
 public interface PaymentRepository extends JpaRepository<Payment,Long> {
 
     public Payment findPaymentByStudentAndCourse(Student student, Course course);
+
+    public Payment findPaymentByStudentAndMentorship(Student student, Mentorship mentorship);
 
     @Modifying
     @Query("update Payment p set p.amountDue = :amountDue where p.paymentId = :paymentId")

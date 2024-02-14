@@ -1,7 +1,10 @@
 package org.paychex.mentorshipeducationproject.controller;
 
+import org.paychex.mentorshipeducationproject.entity.Course;
 import org.paychex.mentorshipeducationproject.entity.Payment;
 import org.paychex.mentorshipeducationproject.entity.Student;
+import org.paychex.mentorshipeducationproject.repository.CourseRepository;
+import org.paychex.mentorshipeducationproject.service.CourseService;
 import org.paychex.mentorshipeducationproject.service.PaymentService;
 import org.paychex.mentorshipeducationproject.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,9 @@ public class StudentController {
 
     @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    private CourseService courseService;
 
     @PostMapping
     public Student createStudent(@RequestBody Student student){
@@ -55,13 +61,24 @@ public class StudentController {
       return ResponseEntity.ok(studentService.updateStudentPassword(student.getEmail(),student.getPassword()));
 
     }
-    @PostMapping("/{sid}/{cid}/payment")
+    @PostMapping("/course/{sid}/{cid}/payment")
     public Payment makePaymentForCourse(@RequestBody Payment p, @PathVariable Long sid,@PathVariable Long cid){
         return paymentService.makePaymentForCourse(p,sid,cid);
     }
 
-    public Payment makePaymentWithInstallment(Payment p, Long sid, Long cid){
-
-        return paymentService.makePaymentWithInstallment(p,sid,cid);
+    @PostMapping("/mentorship/{sid}/{mid}/payment")
+    public Payment makePaymentForMentorship(@RequestBody Payment p, @PathVariable Long sid,@PathVariable Long mid){
+        return paymentService.makePaymentForMentorship(p,sid,mid);
     }
+
+    @GetMapping("/courses/{cid}")
+    public Course viewCourse(Long cid){
+        return courseService.findCourseByCourseId(cid);
+    }
+
+    //mentorship
+
+//    public ResponseEntity<String> enrollNewCourse(Long sid,Long cid){
+//        return ResponseEntity.ok(courseService.enrollNewCourse(sid,cid));
+//    }
 }

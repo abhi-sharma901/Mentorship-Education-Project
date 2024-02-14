@@ -2,6 +2,7 @@ package org.paychex.mentorshipeducationproject.service;
 
 
 import jakarta.transaction.Transactional;
+import org.paychex.mentorshipeducationproject.entity.Course;
 import org.paychex.mentorshipeducationproject.entity.Student;
 import org.paychex.mentorshipeducationproject.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,4 +44,14 @@ public class StudentService {
         return studentRepository.findStudentByEmail(email);
 
     }
+    public Student addCourse(Student student, Course course){
+        student.getCourse().add(course);
+        course.getStudents().add(student);
+        return student;
+    }
+
+//    public void addCourse(Course course) {
+//        this.course.add(course);
+//        course.getStudents().add(this);
+//    }
 }

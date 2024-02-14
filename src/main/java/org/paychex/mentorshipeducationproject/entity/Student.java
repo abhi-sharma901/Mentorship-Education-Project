@@ -67,4 +67,6 @@ public class Student {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
     private Set<Payment> paymentList;
+
+
 }

@@ -2,6 +2,7 @@ package org.paychex.mentorshipeducationproject.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,12 +33,13 @@ public class Payment {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "course_id")
+    @JsonIgnore
     private Course course;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "mentorship_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "mentorship_id", referencedColumnName = "mentorship_id")
+    @JsonIgnore
     private Mentorship mentorship;
-
 
     @Column(name = "payment_amount")
     private Double paymentAmount;
@@ -63,6 +65,5 @@ public class Payment {
         this.totalBill = totalBill;
         this.amountDue = amountDue;
         this.paymentDate = paymentDate;
-
     }
 }

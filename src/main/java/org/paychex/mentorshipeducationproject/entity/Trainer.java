@@ -6,9 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
 @Entity
@@ -59,8 +57,8 @@ public class Trainer {
     private LocalDate createdDate;
 
     @OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Mentorship> mentorshipList = new ArrayList<>();
+    private Set<Mentorship> mentorshipList = new HashSet<>();
 
     @OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Course> courseList = new ArrayList<>();
+    private Set<Course> courseList = new HashSet<>();
 }
