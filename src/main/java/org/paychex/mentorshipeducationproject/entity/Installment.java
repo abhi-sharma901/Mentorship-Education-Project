@@ -1,6 +1,8 @@
 package org.paychex.mentorshipeducationproject.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -10,6 +12,7 @@ import java.util.Objects;
 
 @Table(name = "installment")
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Installment {
 
     @Id

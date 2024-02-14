@@ -1,14 +1,9 @@
 package org.paychex.mentorshipeducationproject.service;
 
 import jakarta.transaction.Transactional;
-import org.paychex.mentorshipeducationproject.entity.Course;
-import org.paychex.mentorshipeducationproject.entity.Installment;
-import org.paychex.mentorshipeducationproject.entity.Payment;
-import org.paychex.mentorshipeducationproject.entity.Student;
-import org.paychex.mentorshipeducationproject.repository.CourseRepository;
-import org.paychex.mentorshipeducationproject.repository.InstallmentRepository;
-import org.paychex.mentorshipeducationproject.repository.PaymentRepository;
-import org.paychex.mentorshipeducationproject.repository.StudentRepository;
+import org.paychex.mentorshipeducationproject.entity.*;
+import org.paychex.mentorshipeducationproject.repository.*;
+import org.paychex.mentorshipeducationproject.utils.AvailabilityStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +27,9 @@ public class PaymentService {
     private CourseRepository courseRepository;
 
     @Autowired
+    private MentorshipRepository mentorshipRepository;
+
+    @Autowired
     private InstallmentRepository installmentRepository;
 
     @Transactional
@@ -39,16 +37,22 @@ public class PaymentService {
 
         Student student = studentRepository.findStudentByStudentId(sid);
         Course course = courseRepository.findCourseByCourseId(cid);
+        if(course.getStatus() == AvailabilityStatus.NOT_AVAILABLE){
+            throw new RuntimeException("Course Not Available");
+        }
         if(!p.getIsFullPaid())
         {
             if(p.getPaymentAmount() != course.getCourseCost()/NO_OF_INSTALLMENTS){
                 throw new RuntimeException("Amount is not equal to course cost");
             }
-            return makePaymentWithInstallment(p,sid,cid);
+            return makePaymentWithInstallment(p,sid,cid,null);
         }
         p.setStudent(student);
+        student.getPaymentList().add(p);
         p.setCourse(course);
+        course.getPaymentList().add(p);
         p.setTotalBill(course.getCourseCost());
+        p.setAmountDue(0.0);
 
         // throw error if amount is not equal to
         // course cost or check if payment isFullPaid i false then active makePaymentWithInstallment
@@ -58,28 +62,91 @@ public class PaymentService {
         }
         p.setAmountDue(null);
         p.setPaymentDate(LocalDate.now());
+
+        student.getCourse().add(course);
+        course.getStudents().add(student);
+
         return paymentRepository.save(p);
     }
 
     @Transactional
-    public Payment makePaymentWithInstallment(Payment payment, Long sid, Long cid){
+    public Payment makePaymentForMentorship(Payment p, Long sid, Long mid){
+
         Student student = studentRepository.findStudentByStudentId(sid);
-        Course course = courseRepository.findCourseByCourseId(cid);
-        Payment existingPayment = paymentRepository.findPaymentByStudentAndCourse(student,course);
+        Mentorship mentorship = mentorshipRepository.findMentorshipByMentorshipId(mid);
+        if(mentorship.getStatus() == AvailabilityStatus.NOT_AVAILABLE){
+            throw new RuntimeException("Mentorship Not Available");
+        }
+        if(!p.getIsFullPaid())
+        {
+            if(p.getPaymentAmount() != mentorship.getMentorshipCost()/NO_OF_INSTALLMENTS){
+                throw new RuntimeException("Amount is not equal to mentorship cost");
+            }
+            return makePaymentWithInstallment(p,sid,null,mid);
+        }
+        p.setStudent(student);
+        student.getPaymentList().add(p);
+        p.setMentorship(mentorship);
+        mentorship.setStudent(student);
+        mentorship.setStatus(AvailabilityStatus.NOT_AVAILABLE);
+        p.setTotalBill(mentorship.getMentorshipCost());
+        p.setAmountDue(0.0);
+
+        // throw error if amount is not equal to
+        // course cost or check if payment isFullPaid i false then active makePaymentWithInstallment
+
+        if(!Objects.equals(p.getPaymentAmount(), mentorship.getMentorshipCost())){
+            throw new RuntimeException("Amount is not equal to mentorship cost");
+        }
+        p.setAmountDue(null);
+        p.setPaymentDate(LocalDate.now());
+
+
+        return paymentRepository.save(p);
+    }
+
+    @Transactional
+    public Payment makePaymentWithInstallment(Payment payment, Long sid, Long cid, Long mid){
+        Student student = studentRepository.findStudentByStudentId(sid);
+        Course course = cid == null ? null
+                : courseRepository.findCourseByCourseId(cid);
+        Mentorship mentorship = mid == null ? null
+                : mentorshipRepository.findMentorshipByMentorshipId(mid);
+        Payment existingPayment = course == null
+                ? paymentRepository.findPaymentByStudentAndMentorship(student,mentorship)
+                : paymentRepository.findPaymentByStudentAndCourse(student,course);
+
 
         if(Objects.isNull(existingPayment)){
-            payment.setTotalBill(course.getCourseCost());
-            payment.setAmountDue(course.getCourseCost() - payment.getPaymentAmount());
+            if(course != null && mentorship == null){
+                payment.setTotalBill(course.getCourseCost());
+                payment.setAmountDue(course.getCourseCost()
+                        - payment.getPaymentAmount());
+                payment.setCourse(course);
+                student.getCourse().add(course);
+                course.getStudents().add(student);
+            }
+
+            if(course == null && mentorship != null){
+                payment.setTotalBill(mentorship.getMentorshipCost());
+                payment.setAmountDue(mentorship.getMentorshipCost()
+                        - payment.getPaymentAmount());
+                payment.setMentorship(mentorship);
+                student.getMentorshipList().add(mentorship);
+                mentorship.setStudent(student);
+            }
+
             payment.setPaymentDate(LocalDate.now());
             payment.setStudent(student);
-            payment.setCourse(course);
 
             Installment installment = new Installment(payment.getPaymentAmount(), LocalDate.now());
             installment.setPayment(payment);
 
-            Set<Installment> installmentList = new HashSet<>();
-            installmentList.add(installment);
-            payment.setInstallmentList(installmentList);
+//            Set<Installment> installmentList = new HashSet<>();
+//            installmentList.add(installment);
+//            payment.setInstallmentList(installmentList);
+            payment.getInstallmentList().add(installment);
+            student.getPaymentList().add(payment);
 
             installmentRepository.save(installment);
             return paymentRepository.save(payment);
@@ -102,6 +169,7 @@ public class PaymentService {
         if(existingPayment.getInstallmentList().size() == NO_OF_INSTALLMENTS){
             int uf=updateFullPaid(true, id); //update full paid to true
         }
+        payment.getInstallmentList().add(installment);
         return payment;
 
     }
