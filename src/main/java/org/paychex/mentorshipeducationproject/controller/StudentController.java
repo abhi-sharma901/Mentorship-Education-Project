@@ -67,9 +67,6 @@ public class StudentController {
         return courseService.findCourseByCourseId(cid);
     }
   
-    @GetMapping
-    public List<Student> showStudents(){
-        return studentService.listAllStudents();
-    }
+
 
 }
