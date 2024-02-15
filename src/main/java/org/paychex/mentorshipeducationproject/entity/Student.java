@@ -67,5 +67,12 @@ public class Student {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
     private Set<Payment> paymentList;
 
-
+    public Student(String firstName, String lastName, String contactNumber, String password, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.contactNumber = contactNumber;
+        this.password = password;
+        this.email = email;
+        this.status = true;
+    }
 }

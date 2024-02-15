@@ -35,6 +35,7 @@ public class SecurityConfig {
                         auth->
                                 auth
                                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
+                                        .requestMatchers("api/register").permitAll()
                                         .requestMatchers("api/studentRegister").permitAll()
                                         .requestMatchers("api/trainerRegister").permitAll()
                                         .requestMatchers("api/login").permitAll()
