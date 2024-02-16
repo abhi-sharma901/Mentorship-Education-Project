@@ -28,6 +28,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatIconModule} from "@angular/material/icon";
 import { CoursesComponent } from './component/courses/courses.component';
 import { MentorshipComponent } from './component/mentorship/mentorship.component';
+import { EnrollCourseComponent } from './component/student/enroll-course/enroll-course.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MentorshipComponent } from './component/mentorship/mentorship.component
     NavbarComponent,
     CoursesComponent,
     MentorshipComponent,
+    EnrollCourseComponent,
 
   ],
   imports: [
