@@ -1,0 +1,21 @@
+<app-navbar></app-navbar>
+<h1 class="text-center">Courses</h1>
+<div class="d-flex justify-content-center mt-1" *ngFor="let course of courses">
+  <div class="card  mb-3" style="width: 840px;">
+    <div class="row g-0" >
+      <div class="col-md-4">
+        <img src={{course.imageUrl}} class="img-fluid m-2" width="250px" height="250px" alt="...">
+      </div>
+      <div class="col-md-8" >
+        <div class="card-body">
+          <h2 class="card-title">{{course.courseName }}</h2>
+          <p class="card-text">{{course.courseDescription}} </p>
+          <p class="card-text">start date :{{course.startDate}} </p>
+          <p class="card-text">end date:{{course.endDate}} </p>
+          <p class="card-text"> course cost:{{course.courseCost}} </p>
+          <!-- <button routerLink="/course-detail/{{course.id}}">Update</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

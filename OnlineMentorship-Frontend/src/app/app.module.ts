@@ -26,6 +26,8 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {MatListModule} from "@angular/material/list";
 import {MatCardModule} from "@angular/material/card";
 import {MatIconModule} from "@angular/material/icon";
+import { CoursesComponent } from './component/courses/courses.component';
+import { MentorshipComponent } from './component/mentorship/mentorship.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import {MatIconModule} from "@angular/material/icon";
     StudentDashboardComponent,
     TrainerDashboardComponent,
     NavbarComponent,
+    CoursesComponent,
+    MentorshipComponent,
 
   ],
   imports: [
