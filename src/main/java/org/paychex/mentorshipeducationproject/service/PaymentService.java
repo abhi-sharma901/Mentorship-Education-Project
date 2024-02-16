@@ -60,7 +60,6 @@ public class PaymentService {
         if(!Objects.equals(p.getPaymentAmount(), course.getCourseCost())){
             throw new RuntimeException("Amount is not equal to course cost");
         }
-        p.setAmountDue(null);
         p.setPaymentDate(LocalDate.now());
 
         student.getCourse().add(course);

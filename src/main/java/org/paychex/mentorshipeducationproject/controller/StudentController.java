@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/onlineMentorship/student")
@@ -65,6 +67,10 @@ public class StudentController {
     @GetMapping("/courses/{cid}")
     public Course viewCourse(Long cid){
         return courseService.findCourseByCourseId(cid);
+    }
+    @GetMapping("/{sid}/myCourses")
+    public Set<Course> getEnrolledCourses(@PathVariable Long sid){
+        return studentService.getAllEnrolledCourses(sid);
     }
 
 }

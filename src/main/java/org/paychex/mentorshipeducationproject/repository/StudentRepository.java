@@ -27,4 +27,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Modifying
     @Query(value= "update Student s set s.contact_number = :contactNumber where s.email=:email", nativeQuery = true)
     public int updateStudentDetails(@Param("email") String email,@Param("contactNumber") String contactNumber);
+
+
 }

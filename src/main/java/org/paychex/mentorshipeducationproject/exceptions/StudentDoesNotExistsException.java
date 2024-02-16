@@ -1,13 +1,14 @@
 package org.paychex.mentorshipeducationproject.exceptions;
 
-public class StudentDoesNotExistsException extends RuntimeException{
-    private String message;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
+public class StudentDoesNotExistsException extends RuntimeException{
     public StudentDoesNotExistsException(){
         super();
     }
     public StudentDoesNotExistsException(String msg){
         super(msg);
-        this.message = msg;
     }
 }
