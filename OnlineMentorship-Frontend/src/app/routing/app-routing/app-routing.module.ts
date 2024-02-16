@@ -16,6 +16,7 @@ const routes:Routes =[
   {path:'', pathMatch:'full',component:HomeComponent},
   {path:'register',component:RegisterComponent,pathMatch:'full'},
   {path:'login',component:LoginModuleComponent,pathMatch:'full'},
+
   {
     path:'admin',
     component:AdminDashboardComponent,

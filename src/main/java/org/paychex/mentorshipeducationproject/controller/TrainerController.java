@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/onlineMentorship/trainer")
 public class TrainerController {
