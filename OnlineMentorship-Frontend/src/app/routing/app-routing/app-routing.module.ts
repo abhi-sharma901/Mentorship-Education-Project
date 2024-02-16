@@ -12,12 +12,23 @@ import {TrainerDashboardComponent} from "../../component/trainer/trainer-dashboa
 import {TrainerGuard} from "../../services/trainer.guard";
 import {CoursesComponent} from "../../component/courses/courses.component";
 import {MentorshipComponent} from "../../component/mentorship/mentorship.component";
+import {EnrollCourseComponent} from "../../component/student/enroll-course/enroll-course.component";
 
 
 const routes:Routes =[
   {path:'', pathMatch:'full',component:HomeComponent},
   {path:'register',component:RegisterComponent,pathMatch:'full'},
   {path:'login',component:LoginModuleComponent,pathMatch:'full'},
+  {
+    path:'courses',
+    component:CoursesComponent,
+    pathMatch:'full',
+  },
+  {
+    path:'mentorship',
+    component:MentorshipComponent,
+    pathMatch:'full',
+  },
 
   {
     path:'admin',
@@ -33,6 +44,13 @@ const routes:Routes =[
     pathMatch:'full',
     canActivate:[
       StudentGuard
+    ],
+    children:[
+      {
+        path:'enrollCourse',
+        component:EnrollCourseComponent,
+        pathMatch:'full',
+      }
     ]
   },
   {
@@ -43,16 +61,8 @@ const routes:Routes =[
       TrainerGuard
     ]
   },
-  {
-    path:'courses',
-    component:CoursesComponent,
-    pathMatch:'full',
-  },
-  {
-    path:'mentorship',
-    component:MentorshipComponent,
-    pathMatch:'full',
-  }
+
+
 
 
 

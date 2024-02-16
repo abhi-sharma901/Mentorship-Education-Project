@@ -9,13 +9,19 @@
       <div class="col-md-8" >
         <div class="card-body">
           <h2 class="card-title">{{course.courseName }}</h2>
-          <p class="card-text">{{course.courseDescription}} </p>
+          <p class="card-text">discription :{{course.courseDescription}} </p>
           <p class="card-text">start date :{{course.startDate}} </p>
           <p class="card-text">end date:{{course.endDate}} </p>
           <p class="card-text"> course cost:{{course.courseCost}} </p>
-          <!-- <button routerLink="/course-detail/{{course.id}}">Update</button> -->
+           <button *ngIf="isLoggedIn" routerLink="">Enroll now</button>
+          <button *ngIf="!isLoggedIn" routerLink="/register">Register Now</button>
+
         </div>
       </div>
     </div>
   </div>
+</div>
+<div class="d-flex justify-content-start mt-1" >
+<button class="btn btn-primary ms-5" routerLink="">Go back</button>
+<!--  <button class="btn btn-primary ms-5" *ngIf="isLoggedIn" >Buy Course</button>-->
 </div>
