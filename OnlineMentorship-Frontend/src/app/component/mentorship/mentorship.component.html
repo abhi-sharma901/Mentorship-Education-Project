@@ -1,0 +1,19 @@
+<app-navbar></app-navbar>
+
+<div class="d-flex justify-content-center mt-1">
+  <div class="card  mb-3" style="width: 840px;">
+    <div class="row g-0">
+
+      <div class="col-md-8" *ngFor="let Mentorship of Mentorships">
+        <div class="card-body">
+          <h2 class="card-title">{{Mentorship.mentorshipName}}</h2>
+          <p class="card-text">{{Mentorship.mentorshipDescription}} </p>
+          <p class="card-text">{{Mentorship.mentorshipCost}} </p>
+          <p class="card-text">{{Mentorship.status}} </p>
+          <!-- <button routerLink="/course-detail/{{course.id}}">Update</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

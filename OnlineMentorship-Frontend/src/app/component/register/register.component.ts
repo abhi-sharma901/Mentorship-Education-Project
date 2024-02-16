@@ -15,6 +15,9 @@ export class RegisterComponent {
   ngOnInit(): void {
 
   }
+  ADMIN:string='ADMIN';
+  STUDENT:string='STUDENT';
+  TRAINER:string='TRAINER';
   constructor(private snack:MatSnackBar, private registerService :RegisterService,private  loginService:LoginService){}
   onSubmit() {
 

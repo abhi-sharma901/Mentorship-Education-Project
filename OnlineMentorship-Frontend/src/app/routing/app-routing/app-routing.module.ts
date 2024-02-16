@@ -10,6 +10,8 @@ import {AdminGuard} from "../../services/admin.guard";
 import {StudentGuard, studentGuard} from "../../services/student.guard";
 import {TrainerDashboardComponent} from "../../component/trainer/trainer-dashboard/trainer-dashboard.component";
 import {TrainerGuard} from "../../services/trainer.guard";
+import {CoursesComponent} from "../../component/courses/courses.component";
+import {MentorshipComponent} from "../../component/mentorship/mentorship.component";
 
 
 const routes:Routes =[
@@ -40,7 +42,19 @@ const routes:Routes =[
     canActivate:[
       TrainerGuard
     ]
+  },
+  {
+    path:'courses',
+    component:CoursesComponent,
+    pathMatch:'full',
+  },
+  {
+    path:'mentorship',
+    component:MentorshipComponent,
+    pathMatch:'full',
   }
+
+
 
 ]
 @NgModule({

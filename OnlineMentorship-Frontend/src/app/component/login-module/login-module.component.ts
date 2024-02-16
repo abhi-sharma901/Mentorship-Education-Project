@@ -15,10 +15,16 @@ export class LoginModuleComponent  implements OnInit{
     password:'',
     usertype:''
   };
+  ADMIN:string='ADMIN';
+  STUDENT:string='STUDENT';
+  TRAINER:string='TRAINER';
 
   constructor(private snack:MatSnackBar, private loginService: LoginService,private router:Router){  }
 
   ngOnInit(): void {
+
+  }
+  setUserType() {
 
   }
 
