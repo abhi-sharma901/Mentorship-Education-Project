@@ -31,6 +31,13 @@ import { MentorshipComponent } from './component/mentorship/mentorship.component
 import { EnrollCourseComponent } from './component/student/enroll-course/enroll-course.component';
 import { StudentProfileComponent } from './component/student/student-profile/student-profile.component';
 import { EnrollMentroshipComponent } from './component/student/enroll-mentroship/enroll-mentroship.component';
+import { StudentPaymentsComponent } from './component/student/student-payments/student-payments.component';
+import { StudentEnrollmentsComponent } from './component/student/student-enrollments/student-enrollments.component';
+import { TrainerProfileComponent } from './component/trainer/trainer-profile/trainer-profile.component';
+import { TrainerEnrollmentsComponent } from './component/trainer/trainer-enrollments/trainer-enrollments.component';
+import { TrainerViewStudentComponent } from './component/trainer/trainer-view-student/trainer-view-student.component';
+import { AdminAssignCourseComponent } from './component/admin/admin-assign-course/admin-assign-course.component';
+import { AdminAssignMentorshipComponent } from './component/admin/admin-assign-mentorship/admin-assign-mentorship.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +54,13 @@ import { EnrollMentroshipComponent } from './component/student/enroll-mentroship
     EnrollCourseComponent,
     StudentProfileComponent,
     EnrollMentroshipComponent,
+    StudentPaymentsComponent,
+    StudentEnrollmentsComponent,
+    TrainerProfileComponent,
+    TrainerEnrollmentsComponent,
+    TrainerViewStudentComponent,
+    AdminAssignCourseComponent,
+    AdminAssignMentorshipComponent,
 
   ],
   imports: [

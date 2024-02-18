@@ -100,7 +100,7 @@ public class AuthController {
 //     * @return
 //     */
 //    @PostMapping("/studentRegister")
-//    public ResponseEntity<?> studentRegister(@RequestBody Student student) {
+//    public ResponseEntity<?> studentRegister(@RequestBody User student) {
 //        System.out.println("StudentRegister");
 //        if(studentService.checkStudentExists(student.getEmail())) {
 //            return new ResponseEntity<>("Email is already registered !!", HttpStatus.BAD_REQUEST);
@@ -144,9 +144,9 @@ public class AuthController {
 //                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
 //        SecurityContextHolder.getContext().setAuthentication(authentication);
 //        String token = jwtGenerator.generateToken(authentication, UserType.STUDENT.toString());
-//        Student student = studentService.findStudentByEmail(loginDto.getEmail());
+//        User student = studentService.findStudentByEmail(loginDto.getEmail());
 //        System.out.println("TOKEN"+token);
-//        System.out.println("Student"+student);
+//        System.out.println("User"+student);
 //        return new ResponseEntity<>("login successful !!", HttpStatus.OK);
 //    }
 //

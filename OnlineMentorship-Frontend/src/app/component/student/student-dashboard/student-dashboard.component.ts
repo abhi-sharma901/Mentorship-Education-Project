@@ -1,6 +1,6 @@
 import {Component, NgModule} from '@angular/core';
 import {UserService} from "../../../services/user.service";
-import {Student} from "../../../model/Student";
+import {User} from "../../../model/User";
 import {ActivatedRoute, Router} from "@angular/router";
 
 
@@ -11,9 +11,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class StudentDashboardComponent {
   constructor(private userService: UserService,private router:Router, private route:ActivatedRoute){}
-  student:Student = new Student();
+  student:User = new User();
   ngOnInit(){
-    let s = this.userService.getCurrentStudent();
+    let s = this.userService.getCurrentUser();
     if(s!=null)
       this.student =  JSON.parse(s);
   }

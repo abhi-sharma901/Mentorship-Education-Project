@@ -74,7 +74,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         else if(userType == UserType.STUDENT) {
             Student student = studentRepository.findStudentByEmail(username);
                     if(student.equals(null)){
-                        throw( new UsernameNotFoundException("Student Email "+ username+ "not found"));
+                        throw( new UsernameNotFoundException("User Email "+ username+ "not found"));
                     }
             SimpleGrantedAuthority adminAuthority = new SimpleGrantedAuthority(UserType.STUDENT.toString());
             Collection<GrantedAuthority> authorities = new ArrayList<>();

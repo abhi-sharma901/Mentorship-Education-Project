@@ -1,3 +1,11 @@
 <app-navbar></app-navbar>
 
-<p>trainer-dashboard works!</p>
+<div>
+  <h1>
+    {{ trainer.firstName }} DashBoard
+  </h1>
+</div>
+<div>
+  <button class="btn btn-primary mt-2" routerLink="/trainerProfile">My Profile</button>
+  <button class="btn btn-primary mt-2" routerLink="/trainerEnrollments">My Enrollments</button>
+</div>
