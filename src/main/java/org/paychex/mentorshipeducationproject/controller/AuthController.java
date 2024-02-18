@@ -1,9 +1,12 @@
 package org.paychex.mentorshipeducationproject.controller;
 
+import org.paychex.mentorshipeducationproject.Dto.LoginDto;
+import org.paychex.mentorshipeducationproject.Dto.RegisterDto;
 import org.paychex.mentorshipeducationproject.entity.*;
 import org.paychex.mentorshipeducationproject.security.CustomUserDetailsService;
 import org.paychex.mentorshipeducationproject.security.JwtGenerator;
 import org.paychex.mentorshipeducationproject.service.AdminService;
+import org.paychex.mentorshipeducationproject.service.RegisterService;
 import org.paychex.mentorshipeducationproject.service.StudentService;
 import org.paychex.mentorshipeducationproject.service.TrainerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +18,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +43,9 @@ public class AuthController {
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    private RegisterService registerService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -78,49 +83,56 @@ public class AuthController {
         return new ResponseEntity<>(new JwtResponse(token,loginDto.getEmail()), HttpStatus.OK);
     }
 
-
-
-    /**
-     * Controller to register the student
-     * @param student
-     * @return
-     */
-    @PostMapping("/studentRegister")
-    public ResponseEntity<?> studentRegister(@RequestBody Student student) {
-        System.out.println("StudentRegister");
-        if(studentService.checkStudentExists(student.getEmail())) {
-            return new ResponseEntity<>("Email is already registered !!", HttpStatus.BAD_REQUEST);
-        }
-        student.setPassword(passwordEncoder.encode(student.getPassword()));
-        student.setStatus(true);
-        studentService.createStudent(student);
-        System.out.println("Profile Created Successfully !!");
-        return new ResponseEntity<>(new JwtResponse(), HttpStatus.OK);
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterDto registerDto){
+        System.out.println("Registering User");
+     ResponseEntity<?> response = registerService.register(registerDto);
+     if(response.getStatusCode() == HttpStatus.BAD_REQUEST){
+         return new ResponseEntity<>("Email is already registered !!", HttpStatus.BAD_REQUEST);
+     }
+        return login(new LoginDto(registerDto.getEmail(),registerDto.getPassword(),registerDto.getUsertype()));
     }
 
-    /***
-     * Controller to register the trainer
-     * @param trainer
-     * @return
-     */
-    @PostMapping("/trainerRegister")
-    public ResponseEntity<String> teacherRegister(@RequestBody Trainer trainer) {
-        System.out.println("trainerRegister");
-        if(trainerService.checkTrainerExistsByEmail(trainer.getEmail())) {
-            return new ResponseEntity<>("Email is already registered !!", HttpStatus.BAD_REQUEST);
-        }
-        trainer.setPassword(passwordEncoder.encode(trainer.getPassword()));
-        trainer.setIsActive(true);
-        trainerService.createTrainer(trainer);
-        return new ResponseEntity<>("Profile Created Successfully !!", HttpStatus.OK);
-    }
+//    /**
+//     * Controller to register the student
+//     * @param student
+//     * @return
+//     */
+//    @PostMapping("/studentRegister")
+//    public ResponseEntity<?> studentRegister(@RequestBody Student student) {
+//        System.out.println("StudentRegister");
+//        if(studentService.checkStudentExists(student.getEmail())) {
+//            return new ResponseEntity<>("Email is already registered !!", HttpStatus.BAD_REQUEST);
+//        }
+//        student.setPassword(passwordEncoder.encode(student.getPassword()));
+//        student.setStatus(true);
+//        studentService.createStudent(student);
+//        System.out.println("Profile Created Successfully !!");
+//        return new ResponseEntity<>(new JwtResponse(), HttpStatus.OK);
+//    }
+//
+//    /***
+//     * Controller to register the trainer
+//     * @param trainer
+//     * @return
+//     */
+//    @PostMapping("/trainerRegister")
+//    public ResponseEntity<String> teacherRegister(@RequestBody Trainer trainer) {
+//        System.out.println("trainerRegister");
+//        if(trainerService.checkTrainerExistsByEmail(trainer.getEmail())) {
+//            return new ResponseEntity<>("Email is already registered !!", HttpStatus.BAD_REQUEST);
+//        }
+//        trainer.setPassword(passwordEncoder.encode(trainer.getPassword()));
+//        trainer.setIsActive(true);
+//        trainerService.createTrainer(trainer);
+//        return new ResponseEntity<>("Profile Created Successfully !!", HttpStatus.OK);
+//    }
 
     @GetMapping("/currentUser")
     public User getCurrentUer(Principal principal){
         System.out.println("Getting current User");
         return (User)(this.customUserDetailsService.loadUserByUsername(principal.getName()));
     }
-
 
 
 //    @PostMapping("/studentLogin")

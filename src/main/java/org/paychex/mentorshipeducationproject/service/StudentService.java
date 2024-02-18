@@ -2,44 +2,46 @@ package org.paychex.mentorshipeducationproject.service;
 
 
 import jakarta.transaction.Transactional;
-import org.apache.el.util.ExceptionUtils;
+import org.paychex.mentorshipeducationproject.Dto.CourseDto;
+import org.paychex.mentorshipeducationproject.Dto.StudentDto;
 import org.paychex.mentorshipeducationproject.entity.Course;
 import org.paychex.mentorshipeducationproject.entity.Student;
-import org.paychex.mentorshipeducationproject.exceptions.ErrorResponse;
-import org.paychex.mentorshipeducationproject.exceptions.StudentDoesNotExistsException;
+import org.paychex.mentorshipeducationproject.exceptions.NoRecordFoundException;
+import org.paychex.mentorshipeducationproject.mapper.CourseMapper;
+import org.paychex.mentorshipeducationproject.mapper.StudentMapper;
+import org.paychex.mentorshipeducationproject.repository.CourseRepository;
+import org.paychex.mentorshipeducationproject.repository.PaymentRepository;
 import org.paychex.mentorshipeducationproject.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.context.request.WebRequest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-
-import static org.hibernate.query.sqm.tree.SqmNode.log;
 
 @Service
 public class StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PaymentRepository paymentRepository;
+    @Autowired
+    private CourseRepository courseRepository;
 
-    public Student createStudent(Student s){
-        return studentRepository.save(s);
+    public void createStudent(Student s){
+        studentRepository.save(s);
     }
 
-    public List<Student> listAllStudents(){
-        return studentRepository.findAll();
+    public List<StudentDto> listAllStudents(){
+        List<StudentDto> students = new ArrayList<>();
+        List<Student> st = studentRepository.findAll();
+        for(Student s:st){
+            students.add(StudentMapper.mapToStudentDto(s));
+        }
+        return students;
     }
 
     public Boolean checkStudentExists(String email){
@@ -59,30 +61,34 @@ public class StudentService {
     }
 
     public Student findStudentByEmail(String email){
-        return studentRepository.findStudentByEmail(email);
-    }
-    public Student addCourse(Student student, Course course){
-        student.getCourse().add(course);
-        course.getStudents().add(student);
+        Student student = studentRepository.findStudentByEmail(email);
+        if(student == null){
+            throw new NoRecordFoundException();
+        }
         return student;
     }
 
-    public Set<Course> getAllEnrolledCourses(Long studentId){
-        if(!studentRepository.existsById(studentId)){
-            throw new RuntimeException("Student not found");
+    public List<CourseDto> getAllEnrolledCourses(Long studentId){
+        List<Long> cids = new ArrayList<>(paymentRepository.getEnrolledCourse(studentId));
+        List<CourseDto> courses= new ArrayList<>();
+        for(Long cid : cids){
+            courses.add(CourseMapper.mapToCourseDto(courseRepository.findCourseByCourseId(cid)));
+            System.out.println();
         }
-        Student student = studentRepository.findStudentByStudentId(studentId);
-        return student.getCourse();
+        for(CourseDto c : courses){
+            System.out.println(c);
+        }
+        return courses;
     }
 
-    @ExceptionHandler(StudentDoesNotExistsException.class)
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public ResponseEntity<String> handleStudentDoesNotExistsException(
-            StudentDoesNotExistsException exception
-    ){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(exception.getMessage());
-    }
+//    @ExceptionHandler(StudentDoesNotExistsException.class)
+//    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+//    public ResponseEntity<String> handleStudentDoesNotExistsException(
+//            StudentDoesNotExistsException exception
+//    ){
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                .body(exception.getMessage());
+//    }
 
 //    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(
 //        MethodArgumentNotValidException ex,

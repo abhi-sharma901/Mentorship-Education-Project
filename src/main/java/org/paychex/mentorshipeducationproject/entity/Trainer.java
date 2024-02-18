@@ -58,4 +58,14 @@ public class Trainer {
 
     @OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Course> courseList = new HashSet<>();
+
+    public Trainer(String firstName, String lastName, String contactNumber, String password, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.contactNumber = contactNumber;
+        this.password = password;
+        this.email = email;
+        this.isActive = true;
+
+    }
 }

@@ -1,16 +1,19 @@
 package org.paychex.mentorshipeducationproject.service;
 
 import jakarta.transaction.Transactional;
+import org.paychex.mentorshipeducationproject.Dto.PaymentDto;
+import org.paychex.mentorshipeducationproject.constant.GlobalConstants;
 import org.paychex.mentorshipeducationproject.entity.*;
+import org.paychex.mentorshipeducationproject.exceptions.CourseNotAvailableException;
+import org.paychex.mentorshipeducationproject.exceptions.PaymentMismatchException;
+import org.paychex.mentorshipeducationproject.mapper.PaymentMapper;
 import org.paychex.mentorshipeducationproject.repository.*;
 import org.paychex.mentorshipeducationproject.utils.AvailabilityStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static org.paychex.mentorshipeducationproject.constant.GlobalConstants.NO_OF_INSTALLMENTS;
 
@@ -37,13 +40,16 @@ public class PaymentService {
 
         Student student = studentRepository.findStudentByStudentId(sid);
         Course course = courseRepository.findCourseByCourseId(cid);
+        if(course.getStudents().size() == GlobalConstants.MAX_NO_OF_STUDENTS){
+            throw new CourseNotAvailableException("Course is full");
+        }
         if(course.getStatus() == AvailabilityStatus.NOT_AVAILABLE){
-            throw new RuntimeException("Course Not Available");
+            throw new CourseNotAvailableException();
         }
         if(!p.getIsFullPaid())
         {
             if(p.getPaymentAmount() != course.getCourseCost()/NO_OF_INSTALLMENTS){
-                throw new RuntimeException("Amount is not equal to course cost");
+                throw new PaymentMismatchException("Installment amount not equal to course cost");
             }
             return makePaymentWithInstallment(p,sid,cid,null);
         }
@@ -58,7 +64,7 @@ public class PaymentService {
         // course cost or check if payment isFullPaid i false then active makePaymentWithInstallment
 
         if(!Objects.equals(p.getPaymentAmount(), course.getCourseCost())){
-            throw new RuntimeException("Amount is not equal to course cost");
+            throw new  PaymentMismatchException("Amount not equal to course cost");
         }
         p.setPaymentDate(LocalDate.now());
 
@@ -69,19 +75,17 @@ public class PaymentService {
     }
 
     @Transactional
-    public Payment makePaymentForMentorship(Payment p, Long sid, Long mid){
-
+    public Payment makePaymentForMentorship(Payment p, Long sid, Long mid) {
         Student student = studentRepository.findStudentByStudentId(sid);
         Mentorship mentorship = mentorshipRepository.findMentorshipByMentorshipId(mid);
-        if(mentorship.getStatus() == AvailabilityStatus.NOT_AVAILABLE){
+        if (mentorship.getStatus() == AvailabilityStatus.NOT_AVAILABLE) {
             throw new RuntimeException("Mentorship Not Available");
         }
-        if(!p.getIsFullPaid())
-        {
-            if(p.getPaymentAmount() != mentorship.getMentorshipCost()/NO_OF_INSTALLMENTS){
-                throw new RuntimeException("Amount is not equal to mentorship cost");
+        if (!p.getIsFullPaid()) {
+            if (p.getPaymentAmount() != mentorship.getMentorshipCost() / NO_OF_INSTALLMENTS) {
+                throw new PaymentMismatchException("Installment Amount not correct");
             }
-            return makePaymentWithInstallment(p,sid,null,mid);
+            return makePaymentWithInstallment(p, sid, null, mid);
         }
         p.setStudent(student);
         student.getPaymentList().add(p);
@@ -94,13 +98,11 @@ public class PaymentService {
         // throw error if amount is not equal to
         // course cost or check if payment isFullPaid i false then active makePaymentWithInstallment
 
-        if(!Objects.equals(p.getPaymentAmount(), mentorship.getMentorshipCost())){
-            throw new RuntimeException("Amount is not equal to mentorship cost");
+        if (!Objects.equals(p.getPaymentAmount(), mentorship.getMentorshipCost())) {
+            throw new PaymentMismatchException("Amount not equal to Mentorship cost");
         }
         p.setAmountDue(null);
         p.setPaymentDate(LocalDate.now());
-
-
         return paymentRepository.save(p);
     }
 
@@ -171,6 +173,15 @@ public class PaymentService {
         payment.getInstallmentList().add(installment);
         return payment;
 
+    }
+
+    public List<PaymentDto> getPaymentsByStudent(Long studentId){
+        Student student = studentRepository.findStudentByStudentId(studentId);
+        List<PaymentDto> payments = new ArrayList<>();
+        for(Payment p : student.getPaymentList()){
+            payments.add(PaymentMapper.mapToPaymentDto(p));
+        }
+        return payments;
     }
 
     @Transactional

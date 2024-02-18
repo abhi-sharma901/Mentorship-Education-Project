@@ -1,5 +1,6 @@
 package org.paychex.mentorshipeducationproject.controller;
 
+import org.paychex.mentorshipeducationproject.Dto.StudentDto;
 import org.paychex.mentorshipeducationproject.entity.Course;
 import org.paychex.mentorshipeducationproject.entity.Mentorship;
 import org.paychex.mentorshipeducationproject.entity.Trainer;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/onlineMentorship/trainer")
 public class TrainerController {
@@ -30,10 +33,10 @@ public class TrainerController {
         return trainerService.createTrainer(trainer);
     }
 
-    @GetMapping
-    public List<Trainer> showTrainers(){
-        return trainerService.listAllTrainers();
-    }
+//    @GetMapping
+//    public List<Trainer> showTrainers(){
+//        return trainerService.listAllTrainers();
+//    }
 
     @GetMapping("/showTrainer/{email}")
     public Trainer getTrainerByEmail(@PathVariable String email){
@@ -69,16 +72,20 @@ public class TrainerController {
         return mentorshipService.createMentorship(mentorship);
     }
 
-    @PostMapping("/assignCourse/{tid}/{cid}")
-    public Trainer assignCourseToTrainer(@PathVariable Long tid, @PathVariable Long cid){
-        return trainerService.assignCourseToTrainer(tid,cid);
-    }
+//    @PostMapping("/assignCourse/{tid}/{cid}")
+//    public Trainer assignCourseToTrainer(@PathVariable Long tid, @PathVariable Long cid){
+//        return trainerService.assignCourseToTrainer(tid,cid);
+//    }
+//
+//    @PostMapping("/assignMentorship/{tid}/{mid}")
+//    public Trainer assignMentorshipToTrainer(@PathVariable Long tid, @PathVariable Long mid){
+//        return trainerService.assignMentorshipToTrainer(tid,mid);
+//    }
 
-    @PostMapping("/assignMentorship/{tid}/{mid}")
-    public Trainer assignMentorshipToTrainer(@PathVariable Long tid, @PathVariable Long mid){
-        return trainerService.assignMentorshipToTrainer(tid,mid);
+    @GetMapping("/{cid}/students")
+    public List<StudentDto> getEnrolledStudents(@PathVariable Long cid){
+        return courseService.getEnrolledStudents(cid);
     }
-
 //    @GetMapping("/Login/{email}/{password}")
 //    public Trainer getTrainerByEmailAndPassword(@PathVariable String email, @PathVariable String password){
 //        Trainer trainer = TrainerService.findTrainerByEmailAndPassword(email,password);

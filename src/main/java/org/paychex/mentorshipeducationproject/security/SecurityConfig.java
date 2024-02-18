@@ -35,8 +35,8 @@ public class SecurityConfig {
                         auth->
                                 auth
                                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
-                                        .requestMatchers("api/studentRegister").permitAll()
-                                        .requestMatchers("api/trainerRegister").permitAll()
+                                        .requestMatchers("api/register").permitAll()
+                                        .requestMatchers("onlineMentorship/guest/**").permitAll()
                                         .requestMatchers("api/login").permitAll()
                                         .requestMatchers("api/currentUser").hasAnyAuthority(UserType.TRAINER.toString(),UserType.STUDENT.toString(),UserType.ADMIN.toString())
                                         .requestMatchers("onlineMentorship/student/**").hasAnyAuthority(UserType.STUDENT.toString(),UserType.ADMIN.toString())
