@@ -3,11 +3,11 @@ package org.paychex.mentorshipeducationproject.controller;
 import org.paychex.mentorshipeducationproject.Dto.CourseDto;
 import org.paychex.mentorshipeducationproject.Dto.StudentDto;
 import org.paychex.mentorshipeducationproject.Dto.TrainerDto;
+import org.paychex.mentorshipeducationproject.entity.Course;
+import org.paychex.mentorshipeducationproject.entity.Mentorship;
 import org.paychex.mentorshipeducationproject.entity.Trainer;
 import org.paychex.mentorshipeducationproject.mapper.StudentMapper;
-import org.paychex.mentorshipeducationproject.service.PaymentService;
-import org.paychex.mentorshipeducationproject.service.StudentService;
-import org.paychex.mentorshipeducationproject.service.TrainerService;
+import org.paychex.mentorshipeducationproject.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +22,10 @@ public class AdminController {
     private StudentService studentService;
     @Autowired
     private TrainerService trainerService;
+    @Autowired
+    private CourseService courseService;
+    @Autowired
+    private MentorshipService mentorshipService;
 
 
 
@@ -37,6 +41,16 @@ public class AdminController {
         return trainerService.viewAllTrainers();
     }
 
+    @PostMapping("/createCourse")
+    public Course createCourse(@RequestBody Course course){
+        return courseService.createCourse(course);
+    }
+
+    @PostMapping("/createMentorship")
+    public Mentorship createMentorship(@RequestBody Mentorship mentorship){
+        return mentorshipService.createMentorship(mentorship);
+    }
+
     @PostMapping("/assignCourse/{tid}/{cid}")
     public Trainer assignCourseToTrainer(@PathVariable Long tid, @PathVariable Long cid){
         return trainerService.assignCourseToTrainer(tid,cid);
@@ -47,5 +61,4 @@ public class AdminController {
         return trainerService.assignMentorshipToTrainer(tid,mid);
     }
 
-//    public List<CourseDto> viewAllCourses
 }

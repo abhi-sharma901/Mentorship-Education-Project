@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.paychex.mentorshipeducationproject.Dto.PaymentDto;
 import org.paychex.mentorshipeducationproject.constant.GlobalConstants;
 import org.paychex.mentorshipeducationproject.entity.*;
+import org.paychex.mentorshipeducationproject.exceptions.AlreadyEnrolledException;
 import org.paychex.mentorshipeducationproject.exceptions.CourseNotAvailableException;
 import org.paychex.mentorshipeducationproject.exceptions.PaymentMismatchException;
 import org.paychex.mentorshipeducationproject.mapper.PaymentMapper;
@@ -53,6 +54,9 @@ public class PaymentService {
             }
             return makePaymentWithInstallment(p,sid,cid,null);
         }
+        if(student.getCourses().contains(course) && course.getStudents().contains(student)){
+            throw new AlreadyEnrolledException("Course Already enrolled");
+        }
         p.setStudent(student);
         student.getPaymentList().add(p);
         p.setCourse(course);
@@ -86,6 +90,9 @@ public class PaymentService {
                 throw new PaymentMismatchException("Installment Amount not correct");
             }
             return makePaymentWithInstallment(p, sid, null, mid);
+        }
+        if(student.getMentorshipList().contains(mentorship) && Objects.equals(mentorship.getStudent(), student)){
+            throw new AlreadyEnrolledException("Mentorship Already enrolled");
         }
         p.setStudent(student);
         student.getPaymentList().add(p);

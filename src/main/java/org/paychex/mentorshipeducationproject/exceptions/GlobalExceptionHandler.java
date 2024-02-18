@@ -45,4 +45,14 @@ public class GlobalExceptionHandler {
         errorResponse.setMessage("Payment amount is not equal to the  cost");
         return errorResponse;
     }
+
+    @ExceptionHandler(AlreadyEnrolledException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleAlreadyEnrolledException(
+        AlreadyEnrolledException ex
+    ){
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setMessage("Already enrolled");
+        return errorResponse;
+    }
 }

@@ -3,6 +3,7 @@ package org.paychex.mentorshipeducationproject.service;
 import org.paychex.mentorshipeducationproject.Dto.StudentDto;
 import org.paychex.mentorshipeducationproject.entity.Course;
 import org.paychex.mentorshipeducationproject.entity.Student;
+import org.paychex.mentorshipeducationproject.exceptions.NoRecordFoundException;
 import org.paychex.mentorshipeducationproject.mapper.StudentMapper;
 import org.paychex.mentorshipeducationproject.repository.CourseRepository;
 import org.paychex.mentorshipeducationproject.repository.PaymentRepository;
@@ -36,13 +37,15 @@ public class CourseService {
     }
 
     public List<StudentDto> getEnrolledStudents(Long courseId){
-        List<Long> sids = new ArrayList<>(paymentRepository.getEnrolledStudents(courseId));
+        Course course = courseRepository.findCourseByCourseId(courseId);
+        if(course == null){
+            throw new NoRecordFoundException("Course not found");
+        }
         List<StudentDto> students = new ArrayList<>();
-        for(Long sid : sids){
-            students.add(StudentMapper.mapToStudentDto(studentRepository.findStudentByStudentId(sid)));
+        for(Student s : course.getStudents()){
+            students.add(StudentMapper.mapToStudentDto(s));
         }
         return students;
-
     }
 
 }

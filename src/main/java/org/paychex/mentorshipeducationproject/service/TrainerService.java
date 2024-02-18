@@ -1,12 +1,16 @@
 package org.paychex.mentorshipeducationproject.service;
 
 import jakarta.transaction.Transactional;
+import org.paychex.mentorshipeducationproject.Dto.CourseDto;
+import org.paychex.mentorshipeducationproject.Dto.MentorshipDto;
 import org.paychex.mentorshipeducationproject.Dto.TrainerDto;
 import org.paychex.mentorshipeducationproject.entity.Course;
 import org.paychex.mentorshipeducationproject.entity.Mentorship;
 import org.paychex.mentorshipeducationproject.entity.Trainer;
 import org.paychex.mentorshipeducationproject.exceptions.NoRecordFoundException;
 import org.paychex.mentorshipeducationproject.exceptions.TrainerNotAvailableException;
+import org.paychex.mentorshipeducationproject.mapper.CourseMapper;
+import org.paychex.mentorshipeducationproject.mapper.MentorshipMapper;
 import org.paychex.mentorshipeducationproject.mapper.TrainerMapper;
 import org.paychex.mentorshipeducationproject.repository.CourseRepository;
 import org.paychex.mentorshipeducationproject.repository.MentorshipRepository;
@@ -101,5 +105,29 @@ public class TrainerService {
         trainer.getMentorshipList().add(mentorship);
         trainer.setIsActive(false);
         return trainerRepository.save(trainer);
+    }
+
+    public List<CourseDto> viewAssignedCourses(Long trainerId){
+        Trainer trainer = trainerRepository.findTrainerByTrainerId(trainerId);
+        if(trainer == null){
+            throw new NoRecordFoundException();
+        }
+        List<CourseDto> courses = new ArrayList<>();
+        for(Course c : trainer.getCourseList()){
+            courses.add(CourseMapper.mapToCourseDto(c));
+        }
+        return courses;
+    }
+
+    public List<MentorshipDto> viewAssignedMentorships(Long trainerId){
+        Trainer trainer = trainerRepository.findTrainerByTrainerId(trainerId);
+        if(trainer == null){
+            throw new NoRecordFoundException();
+        }
+        List<MentorshipDto> mentorships = new ArrayList<>();
+        for(Mentorship m : trainer.getMentorshipList()){
+            mentorships.add(MentorshipMapper.mapToMentorshipDto(m));
+        }
+        return mentorships;
     }
 }
