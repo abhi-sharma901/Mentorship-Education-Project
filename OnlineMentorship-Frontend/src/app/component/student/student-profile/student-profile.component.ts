@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {UserService} from "../../../services/user.service";
-import {Student} from "../../../model/Student";
+import {User} from "../../../model/User";
 
 @Component({
   selector: 'app-student-profile',
@@ -9,11 +9,11 @@ import {Student} from "../../../model/Student";
 })
 export class StudentProfileComponent {
 
-  student:Student=new Student();
+  student:User=new User();
   updatePassword=false
   newPass=''
   ngOnInit(){
-    let s = this.userService.getCurrentStudent();
+    let s = this.userService.getCurrentUser();
     if(s!=null)
       this.student =  JSON.parse(s);  }
   constructor(private userService:UserService) {}

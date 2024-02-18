@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Student} from "../../../model/Student";
+import {User} from "../../../model/User";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ActivatedRoute, Router} from "@angular/router";
 import {EnrollStudentService} from "../../../services/enroll-student.service";
@@ -22,7 +22,7 @@ export class EnrollMentroshipComponent implements OnInit {
     mentorshipName:'',
     mentorshipCost:0,
   }
-  student:Student= new Student();
+  student:User= new User();
   amountPaid=0;
   constructor(private snack :MatSnackBar, private router:Router,private route:ActivatedRoute,
               private enrollStudentService: EnrollStudentService, private mentorshipService: MentorshipsService,
@@ -31,7 +31,7 @@ export class EnrollMentroshipComponent implements OnInit {
   ngOnInit(): void {
     this.mentorship.mentorshipCost = this.mentorshipService.getCurrentMentorshipCost()
     this.mentorship.mentorshipName = this.mentorshipService.getCurrentMentorshipName()
-    let s = this.userService.getCurrentStudent();
+    let s = this.userService.getCurrentUser();
     if(s!=null)
       this.student =  JSON.parse(s);
   }
