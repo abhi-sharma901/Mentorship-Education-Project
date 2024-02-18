@@ -1,3 +1,4 @@
+<p>enroll-mentroship works!</p>
 <app-navbar></app-navbar>
 <div class="container">
   <div class="card myCard">
@@ -12,12 +13,12 @@
         </div>
 
         <div class="form-group">
-          <label>Course Name</label>
-          <input value="{{course.courseName}}" type="text" class="form-control" readonly >
+          <label>Mentorship Name</label>
+          <input value="{{mentorship.mentorshipName}}" type="text" class="form-control" readonly >
         </div>
         <div class="form-group">
-          <label>Total Course Payment Amount</label>
-          <input value="{{course.courseCost}}" type="text" class="form-control" readonly >
+          <label>Total Mentorship Payment Amount</label>
+          <input value="{{mentorship.mentorshipCost}}" type="text" class="form-control" readonly >
         </div>
         <div class="btn-group mt-2 mb-2" data-toggle="buttons">
           <label >Select Payment Type</label>
@@ -36,7 +37,7 @@
         <div class="form-group">
           <label>Payment Amount</label>
           <input value="{{amountPaid}}"
-            [(ngModel)]="paymentDetail.paymentAmount" [ngModelOptions]="{standalone: true}" readonly  type="text" class="form-control" >
+                 [(ngModel)]="paymentDetail.paymentAmount" [ngModelOptions]="{standalone: true}" readonly  type="text" class="form-control" >
         </div>
 
 

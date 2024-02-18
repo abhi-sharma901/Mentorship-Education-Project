@@ -11,6 +11,10 @@
           <p class="card-text">{{Mentorship.mentorshipCost}} </p>
           <p class="card-text">{{Mentorship.status}} </p>
           <!-- <button routerLink="/course-detail/{{course.id}}">Update</button> -->
+          <button
+            (click)=" setCurrentCourseId(Mentorship)"
+            *ngIf="isLoggedIn" routerLink="" >Enroll now</button>
+          <button *ngIf="!isLoggedIn" routerLink="/register">Register Now</button>
         </div>
       </div>
     </div>

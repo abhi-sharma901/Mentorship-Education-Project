@@ -12,6 +12,35 @@ export class MentorshipsService {
   getAllMentorships(): Observable<any> {
     return this.http.get(baseUrl + "/viewMentorships");
   }
+  setCurrentMentorship(mentorship:any){
+    console.log(mentorship)
+    localStorage.setItem('mentorship',JSON.stringify(mentorship));
+  }
+  getCurrentMentorshipId(){
+    let s =localStorage.getItem("mentorship");
+    if(s!= null) {
+      let mentorship = JSON.parse(s);
+      return mentorship.mentorshipId;
+    }
+    return null;
+    // return localStorage.getItem('courseId');
+  }
+  getCurrentMentorshipCost(){
+    let s =localStorage.getItem("mentorship");
+    if(s!= null) {
+      let mentorship = JSON.parse(s);
+      return mentorship.mentorshipCost
+    }
+    return null;
+  }
+  getCurrentMentorshipName(){
+    let s =localStorage.getItem("mentorship");
+    if(s!= null) {
+      let mentorship = JSON.parse(s);
+      return mentorship.mentorshipName
+    }
+    return null;
+  }
 }
 
 

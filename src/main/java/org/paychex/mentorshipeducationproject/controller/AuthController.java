@@ -89,7 +89,8 @@ public class AuthController {
      if(response.getStatusCode() == HttpStatus.BAD_REQUEST){
          return new ResponseEntity<>("Email is already registered !!", HttpStatus.BAD_REQUEST);
      }
-        return login(new LoginDto(registerDto.getEmail(),registerDto.getPassword(),registerDto.getUsertype()));
+       return new ResponseEntity<>("Registration Successfully Done", HttpStatus.OK);
+
     }
 
 //    /**

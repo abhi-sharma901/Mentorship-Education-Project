@@ -38,6 +38,7 @@ export class LoginService {
   // logout: remove token from the localstorage
   public logout():boolean{
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     return true;
   }
 
