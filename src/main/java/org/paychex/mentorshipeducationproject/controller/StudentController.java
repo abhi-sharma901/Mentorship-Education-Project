@@ -42,8 +42,8 @@ public class StudentController {
 //        return studentService.listAllStudents();
 //    }
     @GetMapping("/showStudent/{email}")
-    public Student getStudentByEmail(@PathVariable String email){
-        return studentService.findStudentByEmail(email);
+    public ResponseEntity<Student> getStudentByEmail(@PathVariable String email){
+        return ResponseEntity.ok(studentService.findStudentByEmail(email));
     }
 
     @PutMapping("/updateStudent")

@@ -3,6 +3,8 @@ import {UserData} from "../../model/UserData";
 import {RegisterService} from "../../services/register.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {LoginService} from "../../services/login.service";
+import {Router} from "@angular/router";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-student-register',
@@ -15,7 +17,10 @@ export class RegisterComponent {
   ngOnInit(): void {
 
   }
-  constructor(private snack:MatSnackBar, private registerService :RegisterService,private  loginService:LoginService){}
+  ADMIN:string='ADMIN';
+  STUDENT:string='STUDENT';
+  TRAINER:string='TRAINER';
+  constructor(private snack:MatSnackBar, private registerService :RegisterService,private  loginService:LoginService,private router:Router, private userervice:UserService){}
   onSubmit() {
 
     if (this.userData.email.trim() == '' || this.userData.email == null) {
@@ -58,11 +63,16 @@ export class RegisterComponent {
     this.loginService.storeToken('');
 
     this.registerService.register(this.userData).subscribe((data:any) => {
-      console.log("Succesfull")
+      console.log("Succesfull registeration")
       console.log(data);
-      this.loginService.storeToken(data.token);
+      alert("Succesfull registeration!! Please login to use the site.")
+      this.router.navigate(["/login"])
+
     }, (error) => {
       console.log('Error'+error.toString());
+      this.snack.open("Invalid Details!! Try again",'',{
+        duration:3000,
+      })
     })
   }
 

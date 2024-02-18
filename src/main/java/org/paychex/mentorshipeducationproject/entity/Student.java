@@ -1,6 +1,8 @@
 package org.paychex.mentorshipeducationproject.entity;
 
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -54,17 +56,19 @@ public class Student  {
     @CreationTimestamp
     private LocalDate createdDate;
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "student_course",
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id"))
     @JsonBackReference
-    @JsonIgnore
     private Set<Course> course = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private Set<Mentorship> mentorshipList;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
     private Set<Payment> paymentList;
 

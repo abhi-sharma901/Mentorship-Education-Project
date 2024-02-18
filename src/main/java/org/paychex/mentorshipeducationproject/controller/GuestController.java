@@ -1,5 +1,6 @@
 package org.paychex.mentorshipeducationproject.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.paychex.mentorshipeducationproject.entity.Course;
 import org.paychex.mentorshipeducationproject.entity.Mentorship;
 import org.paychex.mentorshipeducationproject.service.CourseService;
@@ -24,10 +25,12 @@ public class GuestController {
     @Autowired
     private MentorshipService mentorshipService;
 
+
     @GetMapping("/viewCourses")
     public ResponseEntity<List<Course> >viewAllCourses(){
         return ResponseEntity.ok(courseService.getAllCourses());
     }
+
     @GetMapping("/viewMentorships")
     public ResponseEntity<List<Mentorship> >viewAllMentorship(){
         return ResponseEntity.ok(mentorshipService.getAllMentorships());

@@ -62,9 +62,11 @@ public class Course {
     @JsonManagedReference
     private Set<Student> students = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "course", cascade=CascadeType.ALL)
     private Set<Payment> paymentList = new HashSet<>();
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "trainer_id")
     private Trainer trainer;

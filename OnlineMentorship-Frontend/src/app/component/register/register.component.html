@@ -1,3 +1,5 @@
+<app-navbar></app-navbar>
+
 <div class="container">
   <div class="card myCard">
     <div class="card-header bg-dark text-white">
@@ -27,13 +29,20 @@
           <label>Contact Number</label>
           <input [(ngModel)]="userData.contactNumber" [ngModelOptions]="{standalone: true}"  type="text" class="form-control" >
         </div>
-        <div class="form-group">
-          <label>User Type</label>
-          <input [(ngModel)]="userData.usertype" [ngModelOptions]="{standalone: true}"  type="text" class="form-control" >
+        <div class="btn-group mt-2 mb-2" data-toggle="buttons">
+          <label >Select User Type</label>
+          <label class="ms-1">
+            <input type="radio" name="options" id="option2" [value]="STUDENT" [(ngModel)]="userData.usertype"> Student
+          </label>
+          <label class="ms-1">
+            <input type="radio" name="options" id="option3" [value]="TRAINER" [(ngModel)]="userData.usertype" > Trainer
+          </label>
         </div>
+
 
         <div class="form-group">
           <button type="submit" class="btn btn-primary">Register</button>
+          <p class="text-center">  have an account? <a routerLink="/login">Login</a> </p>
         </div>
       </form>
     </div>

@@ -1,0 +1,51 @@
+<p>enroll-mentroship works!</p>
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="card myCard">
+    <div class="card-header bg-dark text-white">
+      <h1>Payment Detail</h1>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="enroll()">
+        <div class="form-group">
+          <label>Student Name</label>
+          <input value="{{student.firstName}} {{student.lastName}}" type="text" class="form-control" readonly >
+        </div>
+
+        <div class="form-group">
+          <label>Mentorship Name</label>
+          <input value="{{mentorship.mentorshipName}}" type="text" class="form-control" readonly >
+        </div>
+        <div class="form-group">
+          <label>Total Mentorship Payment Amount</label>
+          <input value="{{mentorship.mentorshipCost}}" type="text" class="form-control" readonly >
+        </div>
+        <div class="btn-group mt-2 mb-2" data-toggle="buttons">
+          <label >Select Payment Type</label>
+          <label class=" active ms-2">
+            <input
+              (click)="fullPayment()"
+              type="radio" name="options" id="option1" [value]="true" [(ngModel)]="paymentDetail.isFullPaid"  > Full Payment
+          </label>
+          <label class="ms-1">
+            <input
+              (click)="installment()"
+              type="radio" name="options" id="option2" [value]="false" [(ngModel)]="paymentDetail.isFullPaid"> Installment
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label>Payment Amount</label>
+          <input value="{{amountPaid}}"
+                 [(ngModel)]="paymentDetail.paymentAmount" [ngModelOptions]="{standalone: true}" readonly  type="text" class="form-control" >
+        </div>
+
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Enroll Now</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

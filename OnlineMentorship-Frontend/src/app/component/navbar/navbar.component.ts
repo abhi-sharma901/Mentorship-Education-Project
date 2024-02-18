@@ -16,30 +16,21 @@ export class NavbarComponent implements OnInit {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
   isLoggedIn = false;
-  user: any;
+  userRole: any;
   constructor(
     public loginService: LoginService,
-    private observer: BreakpointObserver,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.isLoggedIn = this.loginService.isLoggedIn();
-    this.user = this.loginService.getUser();
+    this.userRole = this.loginService.getUserRole();
   }
-  ngAfterViewInit() {
-    this.observer
-      .observe(['(max-width: 800px)'])
-      .pipe(delay(1))
-      .subscribe((res) => {
-        if (res.matches) {
-          this.sidenav.mode = 'over';
-          this.sidenav.close();
-        } else {
-          this.sidenav.mode = 'side';
-          this.sidenav.open();
-        }
-      });
+  goToDashboard(){
+    console.log(this.userRole)
+    // if(this.userRole == "STUDENT")
+      this.router.navigate(['student']);
+
   }
 
   public logout() {
