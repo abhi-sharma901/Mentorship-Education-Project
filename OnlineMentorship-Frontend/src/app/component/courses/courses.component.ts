@@ -19,7 +19,6 @@ export class CoursesComponent {
     this.getAllCourses();
     this.isLoggedIn = this.loginService.isLoggedIn()
     this.user = this.loginService.getUser();
-
   }
   getAllCourses() {
     this.courseService.getAllCourses().subscribe((res) => {

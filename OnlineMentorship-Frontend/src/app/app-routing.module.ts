@@ -24,6 +24,10 @@ import {AdminAssignCourseComponent} from "./component/admin/admin-assign-course/
 import {
   AdminAssignMentorshipComponent
 } from "./component/admin/admin-assign-mentorship/admin-assign-mentorship.component";
+import {ViewStudentsComponent} from "./component/admin/view-students/view-students.component";
+import {ViewTrainersComponent} from "./component/admin/view-trainers/view-trainers.component";
+import {CreateCourseComponent} from "./component/admin/create-course/create-course.component";
+import {CreateMentorshipComponent} from "./component/admin/create-mentorship/create-mentorship.component";
 
 // const studentRoutes = () => import ('../component/student/student-dashboard/student-dashboard.module').then(m=>m.StudentDashboardModule);
 
@@ -56,6 +60,11 @@ const routes:Routes =[
   ,{path:'trainerProfile', component:TrainerProfileComponent, canActivate:[TrainerGuard]}
   ,{path:'trainerEnrollments', component:TrainerEnrollmentsComponent, canActivate:[TrainerGuard]}
   ,{path:'trainerViewStudents', component:TrainerViewStudentComponent, canActivate:[TrainerGuard]}
+  ,{path:'adminViewStudents', component:ViewStudentsComponent, canActivate:[AdminGuard]}
+  ,{path:'adminViewTrainers', component:ViewTrainersComponent, canActivate:[AdminGuard]}
+  ,{path:'adminCreateCourse', component:CreateCourseComponent, canActivate:[AdminGuard]}
+  ,{path:'adminCreateMentorship', component:CreateMentorshipComponent, canActivate:[AdminGuard]}
+
 ]
 @NgModule({
   declarations: [],

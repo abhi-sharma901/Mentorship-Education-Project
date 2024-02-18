@@ -13,6 +13,7 @@ export class CoursesService {
     return this.http.get(baseUrl + "/viewCourses");
   }
 
+
   // getCurrentCourse(course:any){
   //   return course;
   // }
