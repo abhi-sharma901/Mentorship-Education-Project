@@ -1,8 +1,6 @@
 package org.paychex.mentorshipeducationproject.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.paychex.mentorshipeducationproject.utils.AvailabilityStatus;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -59,6 +59,7 @@ public class Course {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "course",cascade=CascadeType.ALL)
+    @JsonManagedReference
     private Set<Student> students = new HashSet<>();
 
     @JsonIgnore
@@ -69,4 +70,22 @@ public class Course {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "trainer_id")
     private Trainer trainer;
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseId=" + courseId +
+                ", courseName='" + courseName + '\'' +
+                ", courseDescription='" + courseDescription + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", courseCost=" + courseCost +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", createdDate=" + createdDate +
+                ", status=" + status +
+                ", students=" + students +
+                ", paymentList=" + paymentList +
+                ", trainer=" + trainer +
+                '}';
+    }
 }

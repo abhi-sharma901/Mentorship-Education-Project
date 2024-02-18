@@ -21,7 +21,6 @@ public class Admin {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-
     public Admin(){
         this.email= "hc1@gmail.com";
         this.password =  "asdfg";

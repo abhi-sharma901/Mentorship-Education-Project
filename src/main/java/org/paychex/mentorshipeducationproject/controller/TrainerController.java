@@ -1,7 +1,8 @@
 package org.paychex.mentorshipeducationproject.controller;
 
-import org.paychex.mentorshipeducationproject.entity.Course;
-import org.paychex.mentorshipeducationproject.entity.Mentorship;
+import org.paychex.mentorshipeducationproject.Dto.CourseDto;
+import org.paychex.mentorshipeducationproject.Dto.MentorshipDto;
+import org.paychex.mentorshipeducationproject.Dto.StudentDto;
 import org.paychex.mentorshipeducationproject.entity.Trainer;
 import org.paychex.mentorshipeducationproject.service.CourseService;
 import org.paychex.mentorshipeducationproject.service.MentorshipService;
@@ -27,15 +28,15 @@ public class TrainerController {
     @Autowired
     private MentorshipService mentorshipService;
 
-    @PostMapping
-    public Trainer createTrainer(@RequestBody Trainer trainer){
-        return trainerService.createTrainer(trainer);
-    }
+//    @PostMapping
+//    public Trainer createTrainer(@RequestBody Trainer trainer){
+//        return trainerService.createTrainer(trainer);
+//    }
 
-    @GetMapping
-    public List<Trainer> showTrainers(){
-        return trainerService.listAllTrainers();
-    }
+//    @GetMapping
+//    public List<Trainer> showTrainers(){
+//        return trainerService.listAllTrainers();
+//    }
 
     @GetMapping("/showTrainer/{email}")
     public Trainer getTrainerByEmail(@PathVariable String email){
@@ -61,25 +62,46 @@ public class TrainerController {
 
     }
 
-    @PostMapping("/createCourse")
-    public Course createCourse(@RequestBody Course course){
-        return courseService.createCourse(course);
+//    @PostMapping("/createCourse")
+//    public Course createCourse(@RequestBody Course course){
+//        return courseService.createCourse(course);
+//    }
+//
+//    @PostMapping("/createMentorship")
+//    public Mentorship createMentorship(@RequestBody Mentorship mentorship){
+//        return mentorshipService.createMentorship(mentorship);
+//    }
+
+//    @PostMapping("/assignCourse/{tid}/{cid}")
+//    public Trainer assignCourseToTrainer(@PathVariable Long tid, @PathVariable Long cid){
+//        return trainerService.assignCourseToTrainer(tid,cid);
+//    }
+//
+//    @PostMapping("/assignMentorship/{tid}/{mid}")
+//    public Trainer assignMentorshipToTrainer(@PathVariable Long tid, @PathVariable Long mid){
+//        return trainerService.assignMentorshipToTrainer(tid,mid);
+//    }
+
+    @GetMapping("/{courseId}/students")
+    public List<StudentDto> getEnrolledStudentsInCourse(@PathVariable Long courseId){
+        return courseService.getEnrolledStudents(courseId);
     }
 
-    @PostMapping("/createMentorship")
-    public Mentorship createMentorship(@RequestBody Mentorship mentorship){
-        return mentorshipService.createMentorship(mentorship);
+    @GetMapping("/{mentorshipId}/student")
+    public StudentDto getEnrolledStudentInMentorship(@PathVariable Long mentorshipId){
+        return mentorshipService.getEnrolledStudent(mentorshipId);
+    }
+    @GetMapping("/{trainerId}/assignedCourses")
+    public List<CourseDto> getAssignedCourses(@PathVariable Long trainerId){
+        return trainerService.viewAssignedCourses(trainerId);
     }
 
-    @PostMapping("/assignCourse/{tid}/{cid}")
-    public Trainer assignCourseToTrainer(@PathVariable Long tid, @PathVariable Long cid){
-        return trainerService.assignCourseToTrainer(tid,cid);
+    @GetMapping("/{trainerId}/assignedMentorships")
+    public List<MentorshipDto> getAssignedMentorship(@PathVariable Long trainerId){
+        return trainerService.viewAssignedMentorships(trainerId);
     }
 
-    @PostMapping("/assignMentorship/{tid}/{mid}")
-    public Trainer assignMentorshipToTrainer(@PathVariable Long tid, @PathVariable Long mid){
-        return trainerService.assignMentorshipToTrainer(tid,mid);
-    }
+
 
 //    @GetMapping("/Login/{email}/{password}")
 //    public Trainer getTrainerByEmailAndPassword(@PathVariable String email, @PathVariable String password){

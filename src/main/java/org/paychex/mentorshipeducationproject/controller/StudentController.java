@@ -1,5 +1,7 @@
 package org.paychex.mentorshipeducationproject.controller;
 
+import org.paychex.mentorshipeducationproject.Dto.CourseDto;
+import org.paychex.mentorshipeducationproject.Dto.PaymentDto;
 import org.paychex.mentorshipeducationproject.entity.Course;
 import org.paychex.mentorshipeducationproject.entity.Payment;
 import org.paychex.mentorshipeducationproject.entity.Student;
@@ -11,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin("*")
 @RestController
@@ -28,14 +33,14 @@ public class StudentController {
     private CourseService courseService;
 
 //     @PostMapping
-//     public Student createStudent(@RequestBody Student student){
+//     public User createStudent(@RequestBody User student){
 //         return studentService.createStudent(student);
 //     }
 
-    @GetMapping
-    public List<Student> showStudents(){
-        return studentService.listAllStudents();
-    }
+//    @GetMapping("/st")
+//    public List<Student> showStudents(){
+//        return studentService.listAllStudents();
+//    }
     @GetMapping("/showStudent/{email}")
     public ResponseEntity<Student> getStudentByEmail(@PathVariable String email){
         return ResponseEntity.ok(studentService.findStudentByEmail(email));
@@ -66,6 +71,15 @@ public class StudentController {
     @GetMapping("/courses/{cid}")
     public Course viewCourse(Long cid){
         return courseService.findCourseByCourseId(cid);
+    }
+    @GetMapping("/{sid}/myCourses")
+    public List<CourseDto> getEnrolledCourses(@PathVariable Long sid){
+        return studentService.getAllEnrolledCourses(sid);
+    }
+
+    @GetMapping("/{sid}/myPayments")
+    public List<PaymentDto> getPayments(@PathVariable Long sid){
+        return paymentService.getPaymentsByStudent(sid);
     }
 
 }

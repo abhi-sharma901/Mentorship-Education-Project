@@ -1,5 +1,7 @@
 package org.paychex.mentorshipeducationproject.controller;
 
+import org.paychex.mentorshipeducationproject.Dto.LoginDto;
+import org.paychex.mentorshipeducationproject.Dto.RegisterDto;
 import org.paychex.mentorshipeducationproject.entity.*;
 import org.paychex.mentorshipeducationproject.security.CustomUserDetailsService;
 import org.paychex.mentorshipeducationproject.security.JwtGenerator;
@@ -16,7 +18,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -99,7 +100,7 @@ public class AuthController {
 //     * @return
 //     */
 //    @PostMapping("/studentRegister")
-//    public ResponseEntity<?> studentRegister(@RequestBody Student student) {
+//    public ResponseEntity<?> studentRegister(@RequestBody User student) {
 //        System.out.println("StudentRegister");
 //        if(studentService.checkStudentExists(student.getEmail())) {
 //            return new ResponseEntity<>("Email is already registered !!", HttpStatus.BAD_REQUEST);
@@ -135,7 +136,6 @@ public class AuthController {
     }
 
 
-
 //    @PostMapping("/studentLogin")
 //    public ResponseEntity<String> studentLogin(@RequestBody LoginDto loginDto) {
 //        System.out.println("studentLogin");
@@ -144,9 +144,9 @@ public class AuthController {
 //                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
 //        SecurityContextHolder.getContext().setAuthentication(authentication);
 //        String token = jwtGenerator.generateToken(authentication, UserType.STUDENT.toString());
-//        Student student = studentService.findStudentByEmail(loginDto.getEmail());
+//        User student = studentService.findStudentByEmail(loginDto.getEmail());
 //        System.out.println("TOKEN"+token);
-//        System.out.println("Student"+student);
+//        System.out.println("User"+student);
 //        return new ResponseEntity<>("login successful !!", HttpStatus.OK);
 //    }
 //

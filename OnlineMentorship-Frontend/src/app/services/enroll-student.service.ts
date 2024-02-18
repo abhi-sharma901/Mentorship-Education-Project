@@ -14,13 +14,13 @@ export class EnrollStudentService {
 
   constructor(private http: HttpClient,private snack:MatSnackBar, private userService:UserService,private mentroshipService: MentorshipsService, private courseService: CoursesService) { }
   enrollCourse( paymentDetail:any) {
-    let sid = this.userService.getStudentId();
+    let sid = this.userService.getUserId();
     console.log(sid);
     let cid = this.courseService.getCurrentCourseId();
    return this.http.post(`${baseUrl}/course/${sid}/${cid}/payment`, paymentDetail)
   }
   enrollMentroship(paymentDetail: any){
-    let sid = this.userService.getStudentId();
+    let sid = this.userService.getUserId();
     console.log(sid);
     let mid = this.mentroshipService.getCurrentMentorshipId();
     return this.http.post(`${baseUrl}/mentorship/${sid}/${mid}/payment`, paymentDetail);

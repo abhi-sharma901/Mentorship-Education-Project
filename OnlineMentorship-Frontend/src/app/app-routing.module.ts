@@ -15,6 +15,15 @@ import {MentorshipComponent} from "./component/mentorship/mentorship.component";
 import {EnrollCourseComponent} from "./component/student/enroll-course/enroll-course.component";
 import {StudentProfileComponent} from "./component/student/student-profile/student-profile.component";
 import {EnrollMentroshipComponent} from "./component/student/enroll-mentroship/enroll-mentroship.component";
+import {StudentPaymentsComponent} from "./component/student/student-payments/student-payments.component";
+import {StudentEnrollmentsComponent} from "./component/student/student-enrollments/student-enrollments.component";
+import {TrainerProfileComponent} from "./component/trainer/trainer-profile/trainer-profile.component";
+import {TrainerEnrollmentsComponent} from "./component/trainer/trainer-enrollments/trainer-enrollments.component";
+import {TrainerViewStudentComponent} from "./component/trainer/trainer-view-student/trainer-view-student.component";
+import {AdminAssignCourseComponent} from "./component/admin/admin-assign-course/admin-assign-course.component";
+import {
+  AdminAssignMentorshipComponent
+} from "./component/admin/admin-assign-mentorship/admin-assign-mentorship.component";
 
 // const studentRoutes = () => import ('../component/student/student-dashboard/student-dashboard.module').then(m=>m.StudentDashboardModule);
 
@@ -30,8 +39,9 @@ const routes:Routes =[
   },
   {path:'mentorship',component:MentorshipComponent, pathMatch:'full',},
   {path:'admin', component:AdminDashboardComponent, pathMatch:'full', canActivate:[AdminGuard],},
+  {path:'adminAssignCourse', component:AdminAssignCourseComponent, canActivate:[AdminGuard]},
+  {path:'adminAssignMentorships', component:AdminAssignMentorshipComponent, canActivate:[AdminGuard]},
   {path:'student', component:StudentDashboardComponent, canActivate:[StudentGuard],
-
     children:[
       // {path:'enrollCourse', component:EnrollCourseComponent,},
       {path:'studentProfile', component:StudentProfileComponent,}]
@@ -39,11 +49,13 @@ const routes:Routes =[
   {path:'trainer', component:TrainerDashboardComponent, pathMatch:'full', canActivate:[TrainerGuard]
   },
   {path:'studentProfile', component:StudentProfileComponent,},
-{
-    path:'enrollCourse', component:EnrollCourseComponent, canActivate:[StudentGuard]}
-
-  ,{
-    path:'enrollMentorship', component:EnrollMentroshipComponent, canActivate:[StudentGuard]}
+{ path:'enrollCourse', component:EnrollCourseComponent, canActivate:[StudentGuard]}
+  ,{path:'enrollMentorship', component:EnrollMentroshipComponent, canActivate:[StudentGuard]}
+  ,{path:'studentPayments', component:StudentPaymentsComponent, canActivate:[StudentGuard]}
+  ,{path:'studentEnrollments', component:StudentEnrollmentsComponent, canActivate:[StudentGuard]}
+  ,{path:'trainerProfile', component:TrainerProfileComponent, canActivate:[TrainerGuard]}
+  ,{path:'trainerEnrollments', component:TrainerEnrollmentsComponent, canActivate:[TrainerGuard]}
+  ,{path:'trainerViewStudents', component:TrainerViewStudentComponent, canActivate:[TrainerGuard]}
 ]
 @NgModule({
   declarations: [],

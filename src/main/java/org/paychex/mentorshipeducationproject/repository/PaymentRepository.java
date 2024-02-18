@@ -29,4 +29,9 @@ public interface PaymentRepository extends JpaRepository<Payment,Long> {
     @Query("update Payment p set p.isFullPaid = :fullPaid where p.paymentId = :paymentId")
     public int updateFullPaid(Boolean fullPaid, Long paymentId); //update full paid
 
+    @Query("select p.course.courseId from Payment p where p.student.studentId= ?1")
+    public List<Long> getEnrolledCourse(Long studentId);
+
+    @Query("select p.student.studentId from Payment p where p.course.courseId= ?1")
+    public List<Long> getEnrolledStudents(Long courseId);
 }
