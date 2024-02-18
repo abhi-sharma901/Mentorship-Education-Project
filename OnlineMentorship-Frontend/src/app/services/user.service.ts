@@ -15,6 +15,34 @@ export class UserService {
   user:User = new User();
   constructor(private http:HttpClient, private loginService:LoginService) { }
 
+  public assignCourse(tid:number,cid:number){
+    return this.http.post(`${baseUrl}/admin/assignCourse/${tid}/${cid}`,null);
+  }
+
+  public assignMentorship(tid:number,mid:number){
+    return this.http.post(`${baseUrl}/admin/assignCourse/${tid}/${mid}`,null);
+  }
+
+  public viewAllStudents(){
+    return this.http.get(`${baseUrl}/admin/viewAllStudents`,);
+  }
+
+  public viewAllTrainers(){
+    return this.http.get(`${baseUrl}/admin/viewAllTrainers`,);
+  }
+
+  public createCourse(course:any){
+    return this.http.post(`${baseUrl}/admin/createCourse`,course);
+
+  }
+
+  public createMentorship(mentorship:any){
+    return this.http.post(`${baseUrl}/admin/createMentorship`,mentorship);
+
+  }
+
+
+
   public setStudent(){
     let email = this.loginService.getUser().username;
     this.http.get(`${baseUrl}/student/showStudent/`+email).subscribe(
@@ -30,6 +58,36 @@ export class UserService {
         localStorage.setItem("currentUser",JSON.stringify(this.user));
     }
     );
+  }
+
+  public getStudentAllCourses(){
+    let sid = this.getUserId();
+    return this.http.get(`${baseUrl}/student/${sid}/myCourses`);
+  }
+
+  getStudentAllMentorships(){
+    let sid = this.getUserId();
+    return this.http.get(`${baseUrl}/student/${sid}/myMentorships`);
+  }
+
+  public getTrainerAllCourses(){
+    let tid = this.getUserId();
+    return this.http.get(`${baseUrl}/trainer/${tid}/assignedCourses`);
+  }
+
+  public getTrainerAllCourseStudent(cid:any){
+    // let tid = this.getUserId();
+    return this.http.get(`${baseUrl}/trainer/${cid}/students`);
+  }
+
+  public getTrainerAllMentorshipStudent(mid:any){
+    // let tid = this.getUserId();
+    return this.http.get(`${baseUrl}/trainer/${mid}/student`);
+  }
+
+  public getTrainerAllMentorships(){
+    let tid = this.getUserId();
+    return this.http.get(`${baseUrl}/trainer/${tid}/assignedMentorships`);
   }
 
   public setTrainer(){
@@ -48,8 +106,9 @@ export class UserService {
     );
   }
 
-  getAllPayments(): Observable<any> {
-    return this.http.get(baseUrl + "/viewPayments");
+  getAllMyPayments(): Observable<any> {
+    let sid = this.getUserId();
+    return this.http.get(`${baseUrl}/student/${sid}/myPayments`);
   }
 
 
@@ -59,7 +118,6 @@ export class UserService {
   }
 
   public getCurrentUser(){
-
     return localStorage.getItem("currentUser");
   }
 

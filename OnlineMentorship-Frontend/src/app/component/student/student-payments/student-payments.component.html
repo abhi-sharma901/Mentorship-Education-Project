@@ -1,20 +1,19 @@
 <app-navbar></app-navbar>
 
-<h1 class="text-center">Courses</h1>
+<h1 class="text-center">MY PAYMENTS</h1>
 <div class="d-flex justify-content-center mt-1" *ngFor="let payment of payments">
   <div class="card  mb-3" style="width: 840px;">
     <div class="row g-0" >
-      <div class="col-md-4">
-        <img  class="img-fluid m-2" width="250px" height="250px" alt="...">
-      </div>
       <div class="col-md-8" >
         <div class="card-body">
-          <h2 class="card-title">{{payment.paymentAmount }}</h2>
-
-          <button
-            (click)=" setCurrentCourseId(payment)"
-            *ngIf="isLoggedIn" routerLink="" >Enroll now</button>
-
+          <h2 class="card-title">Payment Id: {{payment.paymentId }}</h2>
+          <h2 class="card-title">Payment Name: {{payment.paymentAmount }}</h2>
+          <h2 class="card-title">In Installments: {{payment.isFullPaid }}</h2>
+          <h2 class="card-title">Total Amount: {{payment.totalBill }}</h2>
+          <h2 class="card-title">Amount Due: {{payment.amountDue}}</h2>
+          <h2 class="card-title">Payment Date: {{payment.paymentDate }}</h2>
+          <h2 class="card-title">Course Id: {{payment.courseId }}</h2>
+          <h2 class="card-title">Mentorship Id: {{payment.mentorshipId}}</h2>
         </div>
       </div>
     </div>

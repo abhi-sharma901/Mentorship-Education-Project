@@ -1,1 +1,27 @@
 <app-navbar></app-navbar>
+
+<div class="container">
+  <div class="card myCard">
+    <div class="card-header bg-dark text-white">
+      <h1>Assign a Trainer To a Mentorship</h1>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="submit()">
+        <div class="form-group">
+          <label>Trainer Id</label>
+          <input [(ngModel)]="trainerId" [ngModelOptions]="{standalone: true}"  type="text" class="form-control" >
+        </div>
+        <div class="form-group">
+          <label>Course Id</label>
+          <input [(ngModel)]="mentorshipId" [ngModelOptions]="{standalone: true}" type="text" class="form-control" >
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" routerLink="/admin">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="d-flex justify-content-start mt-1" >
+  <button class="btn btn-primary ms-5" routerLink="/student">Go back</button>
+</div>
