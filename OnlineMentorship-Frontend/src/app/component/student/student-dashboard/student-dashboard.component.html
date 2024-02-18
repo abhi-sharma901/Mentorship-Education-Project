@@ -1,17 +1,57 @@
 <app-navbar></app-navbar>
 
 <div>
-  <h1>
+  <h1 class="text-center mt-5">
     {{student.firstName}} DashBoard
   </h1>
 </div>
-<div>
-  <button class="btn btn-primary mt-2" routerLink="/studentProfile" >My Profile</button>
-  <button class="btn btn-primary mt-2" routerLink="/courses">View Courses</button>
-  <button class="btn btn-primary mt-2" routerLink="/mentorship">View Mentorships</button>
-  <button class="btn btn-primary mt-2" routerLink="">My Payments</button>
-  <button class="btn btn-primary mt-2" routerLink="">My Enrolled Courses</button>
+<div class="row">
+<!--  <button class="btn btn-primary mt-2" routerLink="/studentProfile" >My Profile</button>-->
+<!--  <button class="btn btn-primary mt-2" routerLink="/courses">View Courses</button>-->
+<!--  <button class="btn btn-primary mt-2" routerLink="/mentorship">View Mentorships</button>-->
+<!--  <button class="btn btn-primary mt-2" routerLink="">My Payments</button>-->
+<!--  <button class="btn btn-primary mt-2" routerLink="">My Enrolled Courses</button>-->
 
+
+  <div class="card col-4 m-2" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">My profile</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <button class="btn btn-primary mt-2" routerLink="/studentProfile" >My Profile</button>
+    </div>
+  </div>
+
+  <div class="card col-4 m-2" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">View Courses</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <button class="btn btn-primary mt-2" routerLink="/courses">View Courses</button>
+    </div>
+  </div>
+
+  <div class="card col-4 m-2" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">View Mentorship</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <button class="btn btn-primary mt-2" routerLink="/mentorship">View Mentorships</button>
+    </div>
+  </div>
+
+  <div class="card col-4 m-2" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">My Payments</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <button class="btn btn-primary mt-2" routerLink="">My Payments</button>
+    </div>
+  </div>
+
+  <div class="card col-4 m-2" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Enrolled Courses</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <button class="btn btn-primary mt-2" routerLink="">My Enrolled Courses</button>
+    </div>
+  </div>
 
 </div>
 
