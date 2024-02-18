@@ -1,5 +1,4 @@
-package org.paychex.mentorshipeducationproject.entity;
-
+package org.paychex.mentorshipeducationproject.Dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,10 +9,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginDto {
-
+public class StudentDto {
+    private Long studentId;
+    private String firstName;
+    private String lastName;
     private String email;
-    private String password;
-    private UserType usertype;
-
+    private Boolean status;
 }

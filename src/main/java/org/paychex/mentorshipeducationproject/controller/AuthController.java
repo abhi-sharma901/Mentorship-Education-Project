@@ -1,5 +1,7 @@
 package org.paychex.mentorshipeducationproject.controller;
 
+import org.paychex.mentorshipeducationproject.Dto.LoginDto;
+import org.paychex.mentorshipeducationproject.Dto.RegisterDto;
 import org.paychex.mentorshipeducationproject.entity.*;
 import org.paychex.mentorshipeducationproject.security.CustomUserDetailsService;
 import org.paychex.mentorshipeducationproject.security.JwtGenerator;
@@ -16,7 +18,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -133,7 +134,6 @@ public class AuthController {
         System.out.println("Getting current User");
         return (User)(this.customUserDetailsService.loadUserByUsername(principal.getName()));
     }
-
 
 
 //    @PostMapping("/studentLogin")

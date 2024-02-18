@@ -2,13 +2,21 @@ package org.paychex.mentorshipeducationproject.service;
 
 
 import jakarta.transaction.Transactional;
+import org.paychex.mentorshipeducationproject.Dto.CourseDto;
+import org.paychex.mentorshipeducationproject.Dto.StudentDto;
 import org.paychex.mentorshipeducationproject.entity.Course;
 import org.paychex.mentorshipeducationproject.entity.Student;
+import org.paychex.mentorshipeducationproject.exceptions.NoRecordFoundException;
+import org.paychex.mentorshipeducationproject.mapper.CourseMapper;
+import org.paychex.mentorshipeducationproject.mapper.StudentMapper;
+import org.paychex.mentorshipeducationproject.repository.CourseRepository;
+import org.paychex.mentorshipeducationproject.repository.PaymentRepository;
 import org.paychex.mentorshipeducationproject.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,16 +24,24 @@ public class StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PaymentRepository paymentRepository;
+    @Autowired
+    private CourseRepository courseRepository;
 
-    public Student createStudent(Student s){
-        return studentRepository.save(s);
+    public void createStudent(Student s){
+        studentRepository.save(s);
     }
 
-    public List<Student> listAllStudents(){
-        return studentRepository.findAll();
+    public List<StudentDto> listAllStudents(){
+        List<StudentDto> students = new ArrayList<>();
+        List<Student> st = studentRepository.findAll();
+        for(Student s:st){
+            students.add(StudentMapper.mapToStudentDto(s));
+        }
+        return students;
     }
 
     public Boolean checkStudentExists(String email){
@@ -45,16 +61,76 @@ public class StudentService {
     }
 
     public Student findStudentByEmail(String email){
-        return studentRepository.findStudentByEmail(email);
-    }
-    public Student addCourse(Student student, Course course){
-        student.getCourse().add(course);
-        course.getStudents().add(student);
+        Student student = studentRepository.findStudentByEmail(email);
+        if(student == null){
+            throw new NoRecordFoundException();
+        }
         return student;
     }
 
-//    public void addCourse(Course course) {
-//        this.course.add(course);
-//        course.getStudents().add(this);
+    public List<CourseDto> getAllEnrolledCourses(Long studentId){
+        List<Long> cids = new ArrayList<>(paymentRepository.getEnrolledCourse(studentId));
+        List<CourseDto> courses= new ArrayList<>();
+        for(Long cid : cids){
+            courses.add(CourseMapper.mapToCourseDto(courseRepository.findCourseByCourseId(cid)));
+            System.out.println();
+        }
+        for(CourseDto c : courses){
+            System.out.println(c);
+        }
+        return courses;
+    }
+
+//    @ExceptionHandler(StudentDoesNotExistsException.class)
+//    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+//    public ResponseEntity<String> handleStudentDoesNotExistsException(
+//            StudentDoesNotExistsException exception
+//    ){
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                .body(exception.getMessage());
+//    }
+
+//    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(
+//        MethodArgumentNotValidException ex,
+//        WebRequest request
+//    ){
+//        log.error("Failed to find the requested element", ex);
+//        return buildErrorResponse(ex, HttpStatus.NOT_FOUND,request);
+//    }
+//
+//
+//    private ResponseEntity<ErrorResponse> buildErrorResponse(
+//        Exception ex,
+//        HttpStatus status,
+//        WebRequest request
+//    ){
+//        return buildErrorResponse(
+//                ex,
+//                ex.getMessage(),
+//                status,
+//                request);
+//    }
+//
+//    private ResponseEntity<ErrorResponse> buildErrorResponse(
+//        Exception ex,
+//        String message,
+//        HttpStatus status,
+//        WebRequest request
+//    ){
+//        ErrorResponse errorResponse = new ErrorResponse(
+//                status.value(),
+//                message
+//        );
+//        if(printStackTrace && isTraceOn(request)){
+//            errorResponse.setStackTrace(ExceptionUtils.getStackTrace(ex));
+//        }
+//        return ResponseEntity.status(status).body(errorResponse);
+//    }
+//
+//    private boolean isTraceOn(WebRequest request) {
+//        String [] value = request.getParameterValues(TRACE);
+//        return Objects.nonNull(value)
+//                && value.length > 0
+//                && value[0].contentEquals("true");
 //    }
 }

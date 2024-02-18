@@ -1,5 +1,6 @@
 package org.paychex.mentorshipeducationproject.entity;
 
+import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,7 +27,7 @@ import java.util.Set;
 @Setter
 @Table(name = "student")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Student {
+public class Student  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,8 +61,8 @@ public class Student {
     @JoinTable(name = "student_course",
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id"))
+    @JsonBackReference
     private Set<Course> course = new HashSet<>();
-
 
     @JsonIgnore
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
@@ -69,6 +71,10 @@ public class Student {
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
     private Set<Payment> paymentList;
+
+    public Set<Course> getCourses(){
+        return this.course;
+    }
 
     public Student(String firstName, String lastName, String contactNumber, String password, String email) {
         this.firstName = firstName;
