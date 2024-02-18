@@ -1,11 +1,11 @@
 package org.paychex.mentorshipeducationproject.controller;
 
 import org.paychex.mentorshipeducationproject.Dto.CourseDto;
+import org.paychex.mentorshipeducationproject.Dto.MentorshipDto;
 import org.paychex.mentorshipeducationproject.Dto.PaymentDto;
 import org.paychex.mentorshipeducationproject.entity.Course;
 import org.paychex.mentorshipeducationproject.entity.Payment;
 import org.paychex.mentorshipeducationproject.entity.Student;
-import org.paychex.mentorshipeducationproject.repository.CourseRepository;
 import org.paychex.mentorshipeducationproject.service.CourseService;
 import org.paychex.mentorshipeducationproject.service.PaymentService;
 import org.paychex.mentorshipeducationproject.service.StudentService;
@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLOutput;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @CrossOrigin("*")
 @RestController
@@ -32,15 +29,6 @@ public class StudentController {
     @Autowired
     private CourseService courseService;
 
-//     @PostMapping
-//     public User createStudent(@RequestBody User student){
-//         return studentService.createStudent(student);
-//     }
-
-//    @GetMapping("/st")
-//    public List<Student> showStudents(){
-//        return studentService.listAllStudents();
-//    }
     @GetMapping("/showStudent/{email}")
     public ResponseEntity<Student> getStudentByEmail(@PathVariable String email){
         return ResponseEntity.ok(studentService.findStudentByEmail(email));
@@ -75,6 +63,11 @@ public class StudentController {
     @GetMapping("/{sid}/myCourses")
     public List<CourseDto> getEnrolledCourses(@PathVariable Long sid){
         return studentService.getAllEnrolledCourses(sid);
+    }
+
+    @GetMapping("/{sid}/myMentorships")
+    public List<MentorshipDto> getMentorships(@PathVariable Long sid){
+        return studentService.getAllEnrolledMentorship(sid);
     }
 
     @GetMapping("/{sid}/myPayments")
