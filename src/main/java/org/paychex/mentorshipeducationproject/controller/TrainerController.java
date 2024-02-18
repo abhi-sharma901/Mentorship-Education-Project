@@ -33,7 +33,6 @@ public class TrainerController {
         return trainerService.findTrainerByEmail(email);
     }
 
-
     @PutMapping("/updateTrainer")
     public ResponseEntity<Integer> updateUserProfile(@RequestBody Trainer trainer) {
         return ResponseEntity.ok(trainerService.updateTrainerDetails(trainer));
@@ -61,7 +60,7 @@ public class TrainerController {
 
     @GetMapping("/{trainerId}/assignedMentorships")
     public List<MentorshipDto> getAssignedMentorship(@PathVariable Long trainerId){
-        return trainerService.viewAssignedMentorships(trainerId);
+        return trainerService.viewAssignedMentorship(trainerId);
     }
 
 }

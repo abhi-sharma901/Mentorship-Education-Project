@@ -64,9 +64,6 @@ public class PaymentService {
         p.setTotalBill(course.getCourseCost());
         p.setAmountDue(0.0);
 
-        // throw error if amount is not equal to
-        // course cost or check if payment isFullPaid i false then active makePaymentWithInstallment
-
         if(!Objects.equals(p.getPaymentAmount(), course.getCourseCost())){
             throw new  PaymentMismatchException("Amount not equal to course cost");
         }
@@ -102,9 +99,6 @@ public class PaymentService {
         p.setTotalBill(mentorship.getMentorshipCost());
         p.setAmountDue(0.0);
 
-        // throw error if amount is not equal to
-        // course cost or check if payment isFullPaid i false then active makePaymentWithInstallment
-
         if (!Objects.equals(p.getPaymentAmount(), mentorship.getMentorshipCost())) {
             throw new PaymentMismatchException("Amount not equal to Mentorship cost");
         }
@@ -123,7 +117,6 @@ public class PaymentService {
         Payment existingPayment = course == null
                 ? paymentRepository.findPaymentByStudentAndMentorship(student,mentorship)
                 : paymentRepository.findPaymentByStudentAndCourse(student,course);
-
 
         if(Objects.isNull(existingPayment)){
             if(course != null && mentorship == null){
@@ -149,10 +142,6 @@ public class PaymentService {
 
             Installment installment = new Installment(payment.getPaymentAmount(), LocalDate.now());
             installment.setPayment(payment);
-
-//            Set<Installment> installmentList = new HashSet<>();
-//            installmentList.add(installment);
-//            payment.setInstallmentList(installmentList);
             payment.getInstallmentList().add(installment);
             student.getPaymentList().add(payment);
 
