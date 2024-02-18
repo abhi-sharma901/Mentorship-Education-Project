@@ -67,6 +67,7 @@ export class LoginModuleComponent  implements OnInit{
           user =>{
             console.log(user);
             this.loginService.setUser(user);
+            this.loginService.setUserRole();
             console.log(user);
             // redirect to role -> admin, student, trainer
 
@@ -79,6 +80,7 @@ export class LoginModuleComponent  implements OnInit{
               //
               // this.loginService.loginStatusSubject.next(true);
             }else if(this.loginService.getUserRole() == 'TRAINER'){
+              this.userervice.setTrainer();
               this.router.navigate(['trainer']);
             }
             else {

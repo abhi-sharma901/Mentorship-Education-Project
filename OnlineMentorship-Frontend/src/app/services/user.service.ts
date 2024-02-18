@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Student} from "../model/Student";
+import {User} from "../model/User";
 import {LoginService} from "./login.service";
+import {Observable} from "rxjs";
 
-const  baseUrl = 'http://localhost:8091/onlineMentorship/student';
+const  baseUrl = 'http://localhost:8091/onlineMentorship';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,41 +12,62 @@ const  baseUrl = 'http://localhost:8091/onlineMentorship/student';
 
 export class UserService {
 
-  student:Student = new Student();
+  user:User = new User();
   constructor(private http:HttpClient, private loginService:LoginService) { }
 
   public setStudent(){
     let email = this.loginService.getUser().username;
-    this.http.get(`${baseUrl}/showStudent/`+email).subscribe(
+    this.http.get(`${baseUrl}/student/showStudent/`+email).subscribe(
       (user:any)=>{
         console.log(user);
-        this.student.studentId = user.studentId;
-        this.student.firstName = user.firstName;
-        this.student.lastName = user.lastName;
-        this.student.email = user.email;
-        this.student.contactNumber = user.contactNumber;
-        this.student.password = user.password
-        console.log(this.student);
-        localStorage.setItem("currentUser",JSON.stringify(this.student));
+        this.user.userId = user.studentId;
+        this.user.firstName = user.firstName;
+        this.user.lastName = user.lastName;
+        this.user.email = user.email;
+        this.user.contactNumber = user.contactNumber;
+        this.user.password = user.password
+        console.log(this.user);
+        localStorage.setItem("currentUser",JSON.stringify(this.user));
     }
     );
   }
 
+  public setTrainer(){
+    let email = this.loginService.getUser().username;
+    this.http.get(`${baseUrl}/trainer/showTrainer/`+email).subscribe(
+      (user:any)=>{
+        console.log(user);
+        this.user.userId = user.trainerId;
+        this.user.firstName = user.firstName;
+        this.user.lastName = user.lastName;
+        this.user.email = user.email;
+        this.user.contactNumber = user.contactNumber;
+        this.user.password = user.password
+        localStorage.setItem("currentUser",JSON.stringify(this.user));
+      }
+    );
+  }
+
+  getAllPayments(): Observable<any> {
+    return this.http.get(baseUrl + "/viewPayments");
+  }
+
+
   public changePassword(){
-   return this.http.put(`${baseUrl}/updateStudentPassword`, this.getCurrentStudent());
+   return this.http.put(`${baseUrl}/updateStudentPassword`, this.getCurrentUser());
 
   }
 
-  public getCurrentStudent(){
+  public getCurrentUser(){
 
     return localStorage.getItem("currentUser");
   }
 
-  public getStudentId(){
+  public getUserId(){
     let s =localStorage.getItem("currentUser");
     if(s!= null) {
-      let student = JSON.parse(s);
-      return student.studentId;
+      let user = JSON.parse(s);
+      return user.userId;
     }
     return null;
   }

@@ -27,14 +27,22 @@ export class NavbarComponent implements OnInit {
     this.userRole = this.loginService.getUserRole();
   }
   goToDashboard(){
-    console.log(this.userRole)
-    // if(this.userRole == "STUDENT")
+    if (this.loginService.getUserRole() == 'ADMIN') {
+      this.router.navigate(['admin']);
+    } else if (this.loginService.getUserRole() == 'STUDENT') {
       this.router.navigate(['student']);
 
+    }else if(this.loginService.getUserRole() == 'TRAINER'){
+      this.router.navigate(['trainer']);
+    }
+    else {
+      this.logout();
+    }
   }
 
   public logout() {
     this.loginService.logout();
+    this.isLoggedIn= false;
     this.router.navigate(['login']);
   }
 }

@@ -4,7 +4,7 @@ Admin
 - password
 - email
 
-Student 
+User
 - student_id (primary key)
 - first_name
 - last_name
@@ -50,7 +50,7 @@ Mentorship
 
 MentorshipRegistration
 - id (primary key)
-- student_id (foreign key references Student)
+- student_id (foreign key references User)
 - mentorship_id (foreign key references Mentorship)
 - status
 - installment (boolean)
@@ -58,7 +58,7 @@ MentorshipRegistration
 
 CourseRegistration
 - id (primary key)
-- student_id (foreign key references Student)
+- student_id (foreign key references User)
 - course_id (foreign key references Course)
 - status 
 - installment 
