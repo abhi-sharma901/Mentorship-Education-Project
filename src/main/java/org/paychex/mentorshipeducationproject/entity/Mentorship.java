@@ -53,13 +53,16 @@ public class Mentorship {
     @Enumerated(EnumType.STRING)
     private AvailabilityStatus status;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "student_id")
     private Student student;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "mentorship")
     private Payment payment;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "trainer_id")
     private Trainer trainer;

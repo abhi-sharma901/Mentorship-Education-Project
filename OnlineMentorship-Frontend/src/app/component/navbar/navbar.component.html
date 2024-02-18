@@ -47,6 +47,11 @@
           </a>
         </li>
         <li class="nav-item m-1 p-1">
+          <a (click)="goToDashboard()"
+             *ngIf="isLoggedIn" routerLink="" class="mr10 radius" >Dashboard
+          </a>
+        </li>
+        <li class="nav-item m-1 p-1">
         <a
           (click) = "logout()"
           *ngIf="isLoggedIn" routerLink="/login" class="mr10 radius">

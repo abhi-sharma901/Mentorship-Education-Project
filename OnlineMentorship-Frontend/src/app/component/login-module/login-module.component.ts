@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {LoginService} from "../../services/login.service";
 import {Router} from "@angular/router";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-login-module',
@@ -19,7 +20,7 @@ export class LoginModuleComponent  implements OnInit{
   STUDENT:string='STUDENT';
   TRAINER:string='TRAINER';
 
-  constructor(private snack:MatSnackBar, private loginService: LoginService,private router:Router){  }
+  constructor(private snack:MatSnackBar, private loginService: LoginService,private router:Router, private userervice:UserService){  }
 
   ngOnInit(): void {
 
@@ -73,6 +74,7 @@ export class LoginModuleComponent  implements OnInit{
               this.router.navigate(['admin']);
               // this.loginService.loginStatusSubject.next(true);
             } else if (this.loginService.getUserRole() == 'STUDENT') {
+              this.userervice.setStudent();
               this.router.navigate(['student']);
               //
               // this.loginService.loginStatusSubject.next(true);

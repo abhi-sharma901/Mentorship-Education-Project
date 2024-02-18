@@ -1,4 +1,5 @@
 <app-navbar></app-navbar>
+
 <h1 class="text-center">Courses</h1>
 <div class="d-flex justify-content-center mt-1" *ngFor="let course of courses">
   <div class="card  mb-3" style="width: 840px;">
@@ -13,7 +14,9 @@
           <p class="card-text">start date :{{course.startDate}} </p>
           <p class="card-text">end date:{{course.endDate}} </p>
           <p class="card-text"> course cost:{{course.courseCost}} </p>
-           <button *ngIf="isLoggedIn" routerLink="">Enroll now</button>
+           <button
+             (click)=" setCurrentCourseId(course)"
+             *ngIf="isLoggedIn" routerLink="" >Enroll now</button>
           <button *ngIf="!isLoggedIn" routerLink="/register">Register Now</button>
 
         </div>

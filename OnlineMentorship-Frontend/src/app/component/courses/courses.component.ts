@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {CoursesService} from "../../services/courses.service";
 import {LoginService} from "../../services/login.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-courses',
@@ -11,8 +12,9 @@ export class CoursesComponent {
   courses: any = [];
   user:any;
   isLoggedIn: any;
+  courseId:any;
 
-  constructor(private service: CoursesService, private loginService:LoginService) { }
+  constructor(private courseService: CoursesService, private loginService:LoginService, private route:ActivatedRoute, private router:Router) { }
   ngOnInit() {
     this.getAllCourses();
     this.isLoggedIn = this.loginService.isLoggedIn()
@@ -20,9 +22,16 @@ export class CoursesComponent {
 
   }
   getAllCourses() {
-    this.service.getAllCustomers().subscribe((res) => {
+    this.courseService.getAllCourses().subscribe((res) => {
       console.log(res);
       this.courses = res;
     })
   }
+
+  setCurrentCourseId(course:any){
+    this.courseService.setCurrentCourse(course);
+    this.router.navigate(["enrollCourse",{relativeTo:this.route}]);
+
+  }
+
 }
