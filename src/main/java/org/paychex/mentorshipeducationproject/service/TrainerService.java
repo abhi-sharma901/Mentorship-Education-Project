@@ -119,7 +119,7 @@ public class TrainerService {
         return courses;
     }
 
-    public List<MentorshipDto> viewAssignedMentorships(Long trainerId){
+    public List<MentorshipDto> viewAssignedMentorship(Long trainerId){
         Trainer trainer = trainerRepository.findTrainerByTrainerId(trainerId);
         if(trainer == null){
             throw new NoRecordFoundException();

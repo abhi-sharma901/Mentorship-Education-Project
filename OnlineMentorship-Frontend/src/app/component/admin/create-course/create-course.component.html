@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="card myCard">
+    <div class="card-header bg-dark text-white">
+      <h1>Create a New Course</h1>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="submit()">
+        <div class="form-group">
+          <label>Course Name</label>
+          <input [(ngModel)]="course.courseName" [ngModelOptions]="{standalone: true}"  type="text" class="form-control" >
+        </div>
+        <div class="form-group">
+          <label>Course Description</label>
+          <input [(ngModel)]="course.courseDescription" [ngModelOptions]="{standalone: true}" type="text" class="form-control" >
+        </div>
+        <div class="form-group">
+          <label>Start Date</label>
+          <input [(ngModel)]="course.startDate" [ngModelOptions]="{standalone: true}" type="text" class="form-control" >
+        </div>
+        <div class="form-group">
+          <label>End Date</label>
+          <input [(ngModel)]="course.endDate" [ngModelOptions]="{standalone: true}" type="text" class="form-control" >
+        </div>
+        <div class="form-group">
+          <label>Course Cost</label>
+          <input [(ngModel)]="course.courseCost" [ngModelOptions]="{standalone: true}" type="text" class="form-control" >
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" routerLink="/admin">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

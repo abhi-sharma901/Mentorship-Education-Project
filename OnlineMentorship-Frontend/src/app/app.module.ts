@@ -38,7 +38,14 @@ import { TrainerEnrollmentsComponent } from './component/trainer/trainer-enrollm
 import { TrainerViewStudentComponent } from './component/trainer/trainer-view-student/trainer-view-student.component';
 import { AdminAssignCourseComponent } from './component/admin/admin-assign-course/admin-assign-course.component';
 import { AdminAssignMentorshipComponent } from './component/admin/admin-assign-mentorship/admin-assign-mentorship.component';
+
 import { SidebarComponent } from './component/sidebar/sidebar.component';
+
+
+import { ViewStudentsComponent } from './component/admin/view-students/view-students.component';
+import { ViewTrainersComponent } from './component/admin/view-trainers/view-trainers.component';
+import { CreateCourseComponent } from './component/admin/create-course/create-course.component';
+import { CreateMentorshipComponent } from './component/admin/create-mentorship/create-mentorship.component';
 
 
 @NgModule({
@@ -63,8 +70,12 @@ import { SidebarComponent } from './component/sidebar/sidebar.component';
     TrainerViewStudentComponent,
     AdminAssignCourseComponent,
     AdminAssignMentorshipComponent,
-    SidebarComponent,
 
+    SidebarComponent,
+    ViewStudentsComponent,
+    ViewTrainersComponent,
+    CreateCourseComponent,
+    CreateMentorshipComponent,
 
   ],
   imports: [

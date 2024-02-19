@@ -3,11 +3,14 @@ package org.paychex.mentorshipeducationproject.service;
 
 import jakarta.transaction.Transactional;
 import org.paychex.mentorshipeducationproject.Dto.CourseDto;
+import org.paychex.mentorshipeducationproject.Dto.MentorshipDto;
 import org.paychex.mentorshipeducationproject.Dto.StudentDto;
 import org.paychex.mentorshipeducationproject.entity.Course;
+import org.paychex.mentorshipeducationproject.entity.Mentorship;
 import org.paychex.mentorshipeducationproject.entity.Student;
 import org.paychex.mentorshipeducationproject.exceptions.NoRecordFoundException;
 import org.paychex.mentorshipeducationproject.mapper.CourseMapper;
+import org.paychex.mentorshipeducationproject.mapper.MentorshipMapper;
 import org.paychex.mentorshipeducationproject.mapper.StudentMapper;
 import org.paychex.mentorshipeducationproject.repository.CourseRepository;
 import org.paychex.mentorshipeducationproject.repository.PaymentRepository;
@@ -69,68 +72,26 @@ public class StudentService {
     }
 
     public List<CourseDto> getAllEnrolledCourses(Long studentId){
-        List<Long> cids = new ArrayList<>(paymentRepository.getEnrolledCourse(studentId));
-        List<CourseDto> courses= new ArrayList<>();
-        for(Long cid : cids){
-            courses.add(CourseMapper.mapToCourseDto(courseRepository.findCourseByCourseId(cid)));
-            System.out.println();
+        Student student = studentRepository.findStudentByStudentId(studentId);
+        if(student == null){
+            throw new NoRecordFoundException("Student Not Found");
         }
-        for(CourseDto c : courses){
-            System.out.println(c);
+        List<CourseDto> courses= new ArrayList<>();
+        for(Course c : student.getCourses()){
+            courses.add(CourseMapper.mapToCourseDto(c));
         }
         return courses;
     }
 
-//    @ExceptionHandler(StudentDoesNotExistsException.class)
-//    @ResponseStatus(value = HttpStatus.NOT_FOUND)
-//    public ResponseEntity<String> handleStudentDoesNotExistsException(
-//            StudentDoesNotExistsException exception
-//    ){
-//        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-//                .body(exception.getMessage());
-//    }
-
-//    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(
-//        MethodArgumentNotValidException ex,
-//        WebRequest request
-//    ){
-//        log.error("Failed to find the requested element", ex);
-//        return buildErrorResponse(ex, HttpStatus.NOT_FOUND,request);
-//    }
-//
-//
-//    private ResponseEntity<ErrorResponse> buildErrorResponse(
-//        Exception ex,
-//        HttpStatus status,
-//        WebRequest request
-//    ){
-//        return buildErrorResponse(
-//                ex,
-//                ex.getMessage(),
-//                status,
-//                request);
-//    }
-//
-//    private ResponseEntity<ErrorResponse> buildErrorResponse(
-//        Exception ex,
-//        String message,
-//        HttpStatus status,
-//        WebRequest request
-//    ){
-//        ErrorResponse errorResponse = new ErrorResponse(
-//                status.value(),
-//                message
-//        );
-//        if(printStackTrace && isTraceOn(request)){
-//            errorResponse.setStackTrace(ExceptionUtils.getStackTrace(ex));
-//        }
-//        return ResponseEntity.status(status).body(errorResponse);
-//    }
-//
-//    private boolean isTraceOn(WebRequest request) {
-//        String [] value = request.getParameterValues(TRACE);
-//        return Objects.nonNull(value)
-//                && value.length > 0
-//                && value[0].contentEquals("true");
-//    }
+    public List<MentorshipDto> getAllEnrolledMentorship(Long studentId){
+        Student student = studentRepository.findStudentByStudentId(studentId);
+        if(student == null){
+            throw new NoRecordFoundException("Student Not Found");
+        }
+        List<MentorshipDto> mentorship = new ArrayList<>();
+        for(Mentorship m : student.getMentorshipList()){
+            mentorship.add(MentorshipMapper.mapToMentorshipDto(m));
+        }
+        return mentorship;
+    }
 }
