@@ -62,5 +62,9 @@ public class TrainerController {
     public List<MentorshipDto> getAssignedMentorship(@PathVariable Long trainerId){
         return trainerService.viewAssignedMentorship(trainerId);
     }
+    @PutMapping("/{TrainerId}/{CourseId}/cancelAssignedCourse")
+    public ResponseEntity<?> cancelAssignedCourse(@PathVariable Long TrainerId, @PathVariable Long CourseId){
+        return ResponseEntity.ok(trainerService.cancelAssignedCourses(TrainerId,CourseId));
+    }
 
 }
