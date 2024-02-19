@@ -10,6 +10,11 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./student-dashboard.component.css']
 })
 export class StudentDashboardComponent {
+  selectedOption: string ='option1';
+
+  onOptionSelected(option: string) {
+    this.selectedOption = option;
+  }
   constructor(private userService: UserService,private router:Router, private route:ActivatedRoute){}
   student:User = new User();
   ngOnInit(){

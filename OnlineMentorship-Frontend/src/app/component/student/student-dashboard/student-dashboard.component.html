@@ -1,22 +1,90 @@
 <app-navbar></app-navbar>
-
-<div>
-  <h1>
-    {{student.firstName}} DashBoard
+<div style="height: 90%">
+<div >
+  <h1 class="text-center mt-5">
+    {{student.firstName}}'s DashBoard
   </h1>
 </div>
-<div>
-  <button class="btn btn-primary mt-2" routerLink="/studentProfile" >My Profile</button>
-  <button class="btn btn-primary mt-2" routerLink="/courses">View Courses</button>
-  <button class="btn btn-primary mt-2" routerLink="/mentorship">View Mentorships</button>
-  <button class="btn btn-primary mt-2" routerLink="/studentPayments">My Payments</button>
-  <button class="btn btn-primary mt-2" routerLink="/studentEnrollments">My Enrollments</button>
 
 
+<div class="row d-flex justify-content-center">
+
+
+
+  <div class="card col-4 m-2" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">My profile</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <button class="btn btn-primary mt-2" routerLink="/studentProfile" >My Profile</button>
+    </div>
+  </div>
+
+  <div class="card col-4 m-2" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">View Courses</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <button class="btn btn-primary mt-2" routerLink="/courses">View Courses</button>
+    </div>
+  </div>
+
+  <div class="card col-4 m-2" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">View Mentorship</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <button class="btn btn-primary mt-2" routerLink="/mentorship">View Mentorships</button>
+    </div>
+  </div>
 </div>
-<div class="d-flex justify-content-start mt-1" >
-  <button class="btn btn-primary ms-5" routerLink="/trainer">Go back</button>
+  <div class="row d-flex justify-content-center">
+  <div class="card col-4 m-2" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">My Payments</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <button class="btn btn-primary mt-2" routerLink="/studentPayments">My Payments</button>
+    </div>
+  </div>
+
+  <div class="card col-4 m-2" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Enrolled Courses</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <button class="btn btn-primary mt-2" routerLink="/studentEnrollments">My Enrolled Courses</button>
+    </div>
+  </div>
+
 </div>
+</div>
+
+<!--<div class="container">-->
+<!--  <div class="row">-->
+<!--    <div class="col-md-3">-->
+<!--      <app-sidebar (optionSelected)="onOptionSelected($event)"></app-sidebar>-->
+<!--    </div>-->
+<!--    <div class="col-md-9">-->
+<!--      &lt;!&ndash; Main content based on selected option &ndash;&gt;-->
+<!--      <div *ngIf="selectedOption === 'option1'" class="card">-->
+<!--        <div class="card-body">-->
+<!--          Option 1 content-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div *ngIf="selectedOption === 'option2'" class="card">-->
+<!--        <div class="card-body">-->
+<!--          Option 2 content-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div *ngIf="selectedOption === 'option3'" class="card">-->
+<!--        <div class="card-body">-->
+<!--          Option 3 content-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<div class="d-flex justify-content-start mt-1" >-->
+<!--  <button class="btn btn-primary ms-5" routerLink="/trainer">Go back</button>-->
+<!--</div>-->
+
+
 
 
 

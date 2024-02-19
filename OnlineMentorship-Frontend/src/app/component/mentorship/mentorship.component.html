@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-
+<div class="mt-2" style="height: 90%">
 <div class="d-flex justify-content-center mt-1">
   <div class="card  mb-3" style="width: 840px;">
     <div class="row g-0">
@@ -12,9 +12,9 @@
           <p class="card-text">{{Mentorship.status}} </p>
           <!-- <button routerLink="/course-detail/{{course.id}}">Update</button> -->
           <button
-            (click)=" setCurrentCourseId(Mentorship)"
+            (click)=" setCurrentCourseId(Mentorship)" class="btn btn-outline-primary"
             *ngIf="isLoggedIn" routerLink="" >Enroll now</button>
-          <button *ngIf="!isLoggedIn" routerLink="/register">Register Now</button>
+          <button *ngIf="!isLoggedIn" routerLink="/register"  >Register Now</button>
         </div>
       </div>
     </div>
@@ -23,4 +23,4 @@
 <div class="d-flex justify-content-start mt-1" >
   <button class="btn btn-primary ms-5" routerLink="">Go back</button>
 </div>
-
+</div>
