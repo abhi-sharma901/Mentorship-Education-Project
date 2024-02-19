@@ -130,4 +130,22 @@ public class TrainerService {
         }
         return mentorships;
     }
+
+    @Transactional
+    public Trainer cancelAssignedCourses(Long trainerId, Long courseId){
+        Trainer trainer = trainerRepository.findTrainerByTrainerId(trainerId);
+        Course course = courseRepository.findCourseByCourseId(courseId);
+        if(trainer == null ){
+            throw new NoRecordFoundException("Trainer Not Found");
+        }
+        if(course == null){
+            throw new NoRecordFoundException("Course Not Found");
+        }
+        trainer.getCourseList().remove(course);
+        trainer.setIsActive(true);
+        trainer.setCancellationCount(trainer.getCancellationCount()+1);
+        course.setTrainer(null);
+        courseRepository.save(course);
+        return trainerRepository.save(trainer);
+    }
 }
