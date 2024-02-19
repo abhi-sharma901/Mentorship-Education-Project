@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 
-<div class="container">
+<div class="container " style="height: 90%">
   <div class="card myCard">
     <div class="card-header bg-dark text-white">
       <h1>My Profile</h1>
@@ -16,12 +16,12 @@
         <div class="form-group">
           <label>Password</label>
           <input [(ngModel)]="student.password" [ngModelOptions]="{standalone: true}" type="password" class="form-control" readonly>
-          <button [value]="true" [ngModel]="updatePassword" (click)="updatePass()">Update Password</button>
+          <button class="btn btn-outline-primary m-1" [value]="true" [ngModel]="updatePassword" (click)="updatePass()">Update Password</button>
         </div>
         <div class="form-group" *ngIf="updatePassword">
           <label>New Password</label>
           <input [(ngModel)]="newPass" [ngModelOptions]="{standalone: true}" type="password" class="form-control">
-          <button (click)="changePassword()">Change Password</button>
+          <button class="btn btn-outline-primary m-1" (click)="changePassword()">Change Password</button>
         </div>
 
         <div class="form-group">
@@ -37,7 +37,7 @@
           <input [(ngModel)]="student.contactNumber" [ngModelOptions]="{standalone: true}"  type="text" class="form-control" readonly >
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary">Update Details</button>
+          <button type="submit" class="btn btn-primary m-1">Update Details</button>
         </div>
       </form>
     </div>

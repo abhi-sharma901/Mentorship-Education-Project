@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-
+<div style="height: 90%">
 <div class="container">
   <div class="card myCard">
     <div class="card-header bg-dark text-white">
@@ -17,11 +17,11 @@
         </div>
         <div class="form-group">
           <label>Start Date</label>
-          <input [(ngModel)]="course.startDate" [ngModelOptions]="{standalone: true}" type="text" class="form-control" >
+          <input type="date" [(ngModel)]="course.startDate" [ngModelOptions]="{standalone: true}"  class="form-control" >
         </div>
         <div class="form-group">
           <label>End Date</label>
-          <input [(ngModel)]="course.endDate" [ngModelOptions]="{standalone: true}" type="text" class="form-control" >
+          <input [(ngModel)]="course.endDate" [ngModelOptions]="{standalone: true}" type="date" class="form-control" >
         </div>
         <div class="form-group">
           <label>Course Cost</label>
@@ -33,4 +33,5 @@
       </form>
     </div>
   </div>
+</div>
 </div>
