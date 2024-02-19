@@ -6,11 +6,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-
+/**
+ * payment DTO to create payment
+ */
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class PaymentDto {
     private Long paymentId;
     private Double paymentAmount;

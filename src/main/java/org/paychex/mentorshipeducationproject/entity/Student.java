@@ -17,7 +17,7 @@ import java.util.Set;
 
 
 /**
- * @author  hemlata
+ * Student Entity Class
  */
 
 @Entity

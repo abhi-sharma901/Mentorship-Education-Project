@@ -8,7 +8,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDate;
 import java.util.*;
 
-
+/**
+ * Trainer Entity Class
+ */
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor

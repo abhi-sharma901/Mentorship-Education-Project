@@ -27,35 +27,61 @@ public class AdminController {
     @Autowired
     private MentorshipService mentorshipService;
 
-
-
-//    view all courses/mentorships
-//    assign mentorship/course to a trainer
+    /**
+     * Controller to view all the users registered as students
+     * @return List<StudentDto>
+     */
     @GetMapping("/viewAllStudents")
     public List<StudentDto> viewAllStudents() {
         return studentService.listAllStudents();
     }
 
+    /**
+     * Controller to view all the users registered as trainers
+     * @return  List<TrainerDto>
+     */
     @GetMapping("/viewAllTrainers")
     public List<TrainerDto> viewAllTrainers(){
         return trainerService.viewAllTrainers();
     }
 
+    /**
+     * Controller to create a course
+     * @param course
+     * @return
+     */
     @PostMapping("/createCourse")
     public Course createCourse(@RequestBody Course course){
         return courseService.createCourse(course);
     }
 
+    /**
+     * Controller to create a mentorship
+     * @param mentorship
+     * @return
+     */
     @PostMapping("/createMentorship")
     public Mentorship createMentorship(@RequestBody Mentorship mentorship){
         return mentorshipService.createMentorship(mentorship);
     }
 
+    /**
+     * Controller to assign a course to a trainer
+     * @param tid
+     * @param cid
+     * @return
+     */
     @PostMapping("/assignCourse/{tid}/{cid}")
     public Trainer assignCourseToTrainer(@PathVariable Long tid, @PathVariable Long cid){
         return trainerService.assignCourseToTrainer(tid,cid);
     }
 
+    /**
+     * Controller to assign a mentorship to a trainer
+     * @param tid
+     * @param mid
+     * @return
+     */
     @PostMapping("/assignMentorship/{tid}/{mid}")
     public Trainer assignMentorshipToTrainer(@PathVariable Long tid, @PathVariable Long mid){
         return trainerService.assignMentorshipToTrainer(tid,mid);

@@ -1,4 +1,4 @@
-package org.paychex.mentorshipeducationproject.entity;
+package org.paychex.mentorshipeducationproject.utils;
 
 public enum UserType {
     ADMIN("ADMIN"), TRAINER("TRAINER"), STUDENT("STUDENT");

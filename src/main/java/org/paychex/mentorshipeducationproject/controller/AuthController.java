@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
-
+/**
+ * It has Controllers used to log in and register with authentication token
+ */
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api")
@@ -31,12 +33,6 @@ public class AuthController {
 
     @Autowired
     private AdminService adminService;
-
-    @Autowired
-    private StudentService studentService;
-
-    @Autowired
-    private TrainerService trainerService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -94,90 +90,10 @@ public class AuthController {
 
     }
 
-//    /**
-//     * Controller to register the student
-//     * @param student
-//     * @return
-//     */
-//    @PostMapping("/studentRegister")
-//    public ResponseEntity<?> studentRegister(@RequestBody User student) {
-//        System.out.println("StudentRegister");
-//        if(studentService.checkStudentExists(student.getEmail())) {
-//            return new ResponseEntity<>("Email is already registered !!", HttpStatus.BAD_REQUEST);
-//        }
-//        student.setPassword(passwordEncoder.encode(student.getPassword()));
-//        student.setStatus(true);
-//        studentService.createStudent(student);
-//        System.out.println("Profile Created Successfully !!");
-//        return new ResponseEntity<>(new JwtResponse(), HttpStatus.OK);
-//    }
-//
-//    /***
-//     * Controller to register the trainer
-//     * @param trainer
-//     * @return
-//     */
-//    @PostMapping("/trainerRegister")
-//    public ResponseEntity<String> teacherRegister(@RequestBody Trainer trainer) {
-//        System.out.println("trainerRegister");
-//        if(trainerService.checkTrainerExistsByEmail(trainer.getEmail())) {
-//            return new ResponseEntity<>("Email is already registered !!", HttpStatus.BAD_REQUEST);
-//        }
-//        trainer.setPassword(passwordEncoder.encode(trainer.getPassword()));
-//        trainer.setIsActive(true);
-//        trainerService.createTrainer(trainer);
-//        return new ResponseEntity<>("Profile Created Successfully !!", HttpStatus.OK);
-//    }
-
     @GetMapping("/currentUser")
     public User getCurrentUer(Principal principal){
         System.out.println("Getting current User");
         return (User)(this.customUserDetailsService.loadUserByUsername(principal.getName()));
     }
 
-
-//    @PostMapping("/studentLogin")
-//    public ResponseEntity<String> studentLogin(@RequestBody LoginDto loginDto) {
-//        System.out.println("studentLogin");
-//        customUserDetailsService.setUserType(UserType.STUDENT);
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        String token = jwtGenerator.generateToken(authentication, UserType.STUDENT.toString());
-//        User student = studentService.findStudentByEmail(loginDto.getEmail());
-//        System.out.println("TOKEN"+token);
-//        System.out.println("User"+student);
-//        return new ResponseEntity<>("login successful !!", HttpStatus.OK);
-//    }
-//
-//    @PostMapping("/trainerLogin")
-//    public ResponseEntity<String> trainerLogin(@RequestBody LoginDto loginDto) {
-//        System.out.println("trainerLogin");
-//        customUserDetailsService.setUserType(UserType.TRAINER);
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        String token = jwtGenerator.generateToken(authentication, UserType.TRAINER.toString());
-//        Trainer trainer = trainerService.findTrainerByEmail(loginDto.getEmail());
-//        System.out.println("TOKEN"+token);
-//        System.out.println("Trainer"+ trainer);
-//        return new ResponseEntity<>("login successful !!", HttpStatus.OK);
-//    }
-
-    //    @PostMapping("/v1/adminLogin")
-//    public ResponseEntity<String> adminLogin(@RequestBody LoginDto loginDto){
-//        System.out.println("Admin Login");
-//
-//        customUserDetailsService.setUserType(UserType.ADMIN);
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//
-//        String token = jwtGenerator.generateToken(authentication, UserType.ADMIN.toString());
-//
-//        Admin admin = adminService.findAdminByEmail(loginDto.getEmail());
-//        System.out.println("TOKEN"+token);
-//        System.out.println("Admin"+ admin);
-//        return new ResponseEntity<>("login successful !!", HttpStatus.OK);
-//    }
 }
