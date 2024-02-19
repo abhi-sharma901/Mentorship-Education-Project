@@ -38,6 +38,8 @@ import { TrainerEnrollmentsComponent } from './component/trainer/trainer-enrollm
 import { TrainerViewStudentComponent } from './component/trainer/trainer-view-student/trainer-view-student.component';
 import { AdminAssignCourseComponent } from './component/admin/admin-assign-course/admin-assign-course.component';
 import { AdminAssignMentorshipComponent } from './component/admin/admin-assign-mentorship/admin-assign-mentorship.component';
+import { SidebarComponent } from './component/sidebar/sidebar.component';
+
 
 @NgModule({
   declarations: [
@@ -61,6 +63,8 @@ import { AdminAssignMentorshipComponent } from './component/admin/admin-assign-m
     TrainerViewStudentComponent,
     AdminAssignCourseComponent,
     AdminAssignMentorshipComponent,
+    SidebarComponent,
+
 
   ],
   imports: [

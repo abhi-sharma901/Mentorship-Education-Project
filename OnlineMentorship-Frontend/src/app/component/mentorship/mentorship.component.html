@@ -12,9 +12,9 @@
           <p class="card-text">{{Mentorship.status}} </p>
           <!-- <button routerLink="/course-detail/{{course.id}}">Update</button> -->
           <button
-            (click)=" setCurrentCourseId(Mentorship)"
+            (click)=" setCurrentCourseId(Mentorship)" class="btn btn-outline-primary"
             *ngIf="isLoggedIn" routerLink="" >Enroll now</button>
-          <button *ngIf="!isLoggedIn" routerLink="/register">Register Now</button>
+          <button *ngIf="!isLoggedIn" routerLink="/register"  >Register Now</button>
         </div>
       </div>
     </div>

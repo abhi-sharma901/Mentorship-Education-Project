@@ -1,25 +1,14 @@
 <app-navbar></app-navbar>
-
-<div>
+<div style="height: 90%">
+<div >
   <h1 class="text-center mt-5">
-    {{student.firstName}} DashBoard
+    {{student.firstName}}'s DashBoard
   </h1>
 </div>
 
+
 <div class="row">
-<!--  <button class="btn btn-primary mt-2" routerLink="/studentProfile" >My Profile</button>-->
-<!--  <button class="btn btn-primary mt-2" routerLink="/courses">View Courses</button>-->
-<!--  <button class="btn btn-primary mt-2" routerLink="/mentorship">View Mentorships</button>-->
-<!--  <button class="btn btn-primary mt-2" routerLink="">My Payments</button>-->
-<!--  <button class="btn btn-primary mt-2" routerLink="">My Enrolled Courses</button>-->
-<!--=======-->
-<!--<div>-->
-<!--  <button class="btn btn-primary mt-2" routerLink="/studentProfile" >My Profile</button>-->
-<!--  <button class="btn btn-primary mt-2" routerLink="/courses">View Courses</button>-->
-<!--  <button class="btn btn-primary mt-2" routerLink="/mentorship">View Mentorships</button>-->
-<!--  <button class="btn btn-primary mt-2" routerLink="/studentPayments">My Payments</button>-->
-<!--  <button class="btn btn-primary mt-2" routerLink="/studentEnrollments">My Enrollments</button>-->
-<!--&gt;>>>>>> d3fa4a3a22218876105360d6fe7dd3ed20fdd1a9-->
+
 
 
   <div class="card col-4 m-2" style="width: 18rem;">
@@ -50,7 +39,7 @@
     <div class="card-body">
       <h5 class="card-title">My Payments</h5>
       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <button class="btn btn-primary mt-2" routerLink="">My Payments</button>
+      <button class="btn btn-primary mt-2" routerLink="/studentPayments">My Payments</button>
     </div>
   </div>
 
@@ -58,11 +47,40 @@
     <div class="card-body">
       <h5 class="card-title">Enrolled Courses</h5>
       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <button class="btn btn-primary mt-2" routerLink="">My Enrolled Courses</button>
+      <button class="btn btn-primary mt-2" routerLink="/studentEnrollments">My Enrolled Courses</button>
     </div>
   </div>
 
 </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <app-sidebar (optionSelected)="onOptionSelected($event)"></app-sidebar>
+    </div>
+    <div class="col-md-9">
+      <!-- Main content based on selected option -->
+      <div *ngIf="selectedOption === 'option1'" class="card">
+        <div class="card-body">
+          Option 1 content
+        </div>
+      </div>
+      <div *ngIf="selectedOption === 'option2'" class="card">
+        <div class="card-body">
+          Option 2 content
+        </div>
+      </div>
+      <div *ngIf="selectedOption === 'option3'" class="card">
+        <div class="card-body">
+          Option 3 content
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 
 
