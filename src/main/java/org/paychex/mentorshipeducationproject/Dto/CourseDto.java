@@ -8,6 +8,9 @@ import org.paychex.mentorshipeducationproject.utils.AvailabilityStatus;
 
 import java.time.LocalDate;
 
+/**
+ * Course Dto to be used in API
+ */
 @Getter
 @Setter
 @AllArgsConstructor

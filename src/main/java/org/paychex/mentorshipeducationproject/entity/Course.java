@@ -14,6 +14,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * Course entity class
+ */
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,9 +30,6 @@ public class Course {
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     @Column(name = "course_id")
     private Long courseId;
-
-//    @Column(name="trainer_id", nullable = false)
-//    private Long  trainerId;
 
     @Column(name="course_name", nullable = false)
     private String courseName;

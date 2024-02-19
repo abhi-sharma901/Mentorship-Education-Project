@@ -34,7 +34,9 @@ import java.util.Objects;
 //    }
 //}
 
-
+/**
+ * Class to structure the error response
+ */
 @Getter
 @Setter
 @RequiredArgsConstructor

@@ -2,6 +2,7 @@ package org.paychex.mentorshipeducationproject.service;
 
 import org.paychex.mentorshipeducationproject.Dto.RegisterDto;
 import org.paychex.mentorshipeducationproject.entity.*;
+import org.paychex.mentorshipeducationproject.utils.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

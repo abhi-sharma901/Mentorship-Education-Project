@@ -3,6 +3,10 @@ package org.paychex.mentorshipeducationproject.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Global Exception Handler to handle all exceptions
+ * Uses @RestControllerAdvice for this purpose
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

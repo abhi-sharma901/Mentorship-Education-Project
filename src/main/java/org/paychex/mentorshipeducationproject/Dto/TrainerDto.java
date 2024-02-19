@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
+/**
+ * Trainer dto to be used in API
+ */
 @Getter
 @Setter
 @AllArgsConstructor

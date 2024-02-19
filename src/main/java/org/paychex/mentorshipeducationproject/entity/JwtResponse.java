@@ -2,6 +2,9 @@ package org.paychex.mentorshipeducationproject.entity;
 
 import lombok.*;
 
+/**
+ * Jwt Entity for JWT Token
+ */
 @Setter
 @Getter
 @NoArgsConstructor
