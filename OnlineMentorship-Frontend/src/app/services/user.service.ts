@@ -20,7 +20,7 @@ export class UserService {
   }
 
   public assignMentorship(tid:number,mid:number){
-    return this.http.post(`${baseUrl}/admin/assignCourse/${tid}/${mid}`,null);
+    return this.http.post(`${baseUrl}/admin/assignMentorship/${tid}/${mid}`,null);
   }
 
   public viewAllStudents(){
