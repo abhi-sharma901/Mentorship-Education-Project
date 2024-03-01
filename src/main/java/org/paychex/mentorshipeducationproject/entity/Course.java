@@ -71,6 +71,7 @@ public class Course {
     @JoinColumn(name = "trainer_id")
     private Trainer trainer;
 
+
     @Override
     public String toString() {
         return "Course{" +
