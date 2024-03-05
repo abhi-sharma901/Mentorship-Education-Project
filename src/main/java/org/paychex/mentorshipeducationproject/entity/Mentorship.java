@@ -14,6 +14,9 @@ import org.paychex.mentorshipeducationproject.utils.AvailabilityStatus;
 import java.time.LocalDate;
 import java.util.Set;
 
+/**
+ * Mentorship Entity Class
+ */
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,9 +30,6 @@ public class Mentorship {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mentorship_id")
     private Long  mentorshipId;
-
-//    @Column(name = "trainer_id", nullable = false)
-//    private Long trainerId;
 
     @Column(name = "mentorship_name", nullable = false)
     private String mentorshipName;

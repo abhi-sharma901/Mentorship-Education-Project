@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Student Dto to create student
+ */
 @Getter
 @Setter
 @AllArgsConstructor

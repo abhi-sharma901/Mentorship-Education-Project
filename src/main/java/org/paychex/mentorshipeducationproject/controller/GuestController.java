@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Controller For guest users to view courses and mentorship available
+ */
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/onlineMentorship/guest")

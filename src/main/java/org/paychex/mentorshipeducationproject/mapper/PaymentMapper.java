@@ -2,7 +2,9 @@ package org.paychex.mentorshipeducationproject.mapper;
 
 import org.paychex.mentorshipeducationproject.Dto.PaymentDto;
 import org.paychex.mentorshipeducationproject.entity.Payment;
-
+/**
+ * Course payment to map course to payment DTO
+ */
 public class PaymentMapper {
     public static PaymentDto mapToPaymentDto(Payment payment) {
         PaymentDto paymentDto = new PaymentDto();

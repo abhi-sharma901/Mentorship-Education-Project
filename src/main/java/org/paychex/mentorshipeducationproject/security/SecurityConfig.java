@@ -1,7 +1,7 @@
 package org.paychex.mentorshipeducationproject.security;
 
 
-import org.paychex.mentorshipeducationproject.entity.UserType;
+import org.paychex.mentorshipeducationproject.utils.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -19,7 +19,8 @@ export class CreateCourseComponent {
   constructor(private userService: UserService) {
   }
 
-  submit(){
+  submit(event: any) {
+    event.preventDefault()
     if(this.course!= null)
     this.userService.createCourse(this.course).subscribe((data=>{
       console.log(data)

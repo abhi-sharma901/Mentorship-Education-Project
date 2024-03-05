@@ -7,6 +7,10 @@ import lombok.Setter;
 import org.paychex.mentorshipeducationproject.utils.AvailabilityStatus;
 
 import java.time.LocalDate;
+
+/**
+ * mentorshipDto is used to transfer data between controller and service
+ */
 @Getter
 @Setter
 @NoArgsConstructor

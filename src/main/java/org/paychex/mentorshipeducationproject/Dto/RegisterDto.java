@@ -5,8 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.paychex.mentorshipeducationproject.entity.UserType;
+import org.paychex.mentorshipeducationproject.utils.UserType;
 
+/**
+ * Register Dto to register
+ */
 @Getter
 @Setter
 @AllArgsConstructor

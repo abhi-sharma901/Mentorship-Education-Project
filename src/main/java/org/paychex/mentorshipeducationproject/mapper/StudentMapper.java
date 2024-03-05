@@ -2,7 +2,9 @@ package org.paychex.mentorshipeducationproject.mapper;
 
 import org.paychex.mentorshipeducationproject.Dto.StudentDto;
 import org.paychex.mentorshipeducationproject.entity.Student;
-
+/**
+ * Course student to map course to student DTO
+ */
 public class StudentMapper {
     public static StudentDto mapToStudentDto(Student student) {
         StudentDto studentDto = new StudentDto();

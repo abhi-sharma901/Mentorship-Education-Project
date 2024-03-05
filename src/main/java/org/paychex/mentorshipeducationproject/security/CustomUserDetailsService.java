@@ -4,7 +4,7 @@ package org.paychex.mentorshipeducationproject.security;
 import org.paychex.mentorshipeducationproject.entity.Admin;
 import org.paychex.mentorshipeducationproject.entity.Student;
 import org.paychex.mentorshipeducationproject.entity.Trainer;
-import org.paychex.mentorshipeducationproject.entity.UserType;
+import org.paychex.mentorshipeducationproject.utils.UserType;
 import org.paychex.mentorshipeducationproject.repository.AdminRepository;
 import org.paychex.mentorshipeducationproject.repository.StudentRepository;
 import org.paychex.mentorshipeducationproject.repository.TrainerRepository;
@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Objects;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {

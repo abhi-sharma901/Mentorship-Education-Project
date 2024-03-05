@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+/**
+ * Controller for all the users registered as trainers
+ * contains basic CRUD operations for students
+ */
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/onlineMentorship/trainer")

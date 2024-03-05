@@ -12,7 +12,8 @@ export class CreateMentorshipComponent {
     mentorshipDescription:'',
     startDate:'',
     endDate:'',
-    mentorshipCost:0
+    mentorshipCost:0,
+    status:true
   }
 
   constructor(private userService: UserService) {
