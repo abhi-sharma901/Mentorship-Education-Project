@@ -13,14 +13,14 @@
           <!-- <button routerLink="/course-detail/{{course.id}}">Update</button> -->
           <button
             (click)=" setCurrentCourseId(Mentorship)" class="btn btn-outline-primary"
-            *ngIf="isLoggedIn" routerLink="" >Enroll now</button>
-          <button *ngIf="!isLoggedIn" routerLink="/register"  >Register Now</button>
+            *ngIf="isLoggedIn" routerLink=""  class="btn btn-outline-primary" >Enroll now</button>
+          <button *ngIf="!isLoggedIn" routerLink="/register"  class="btn btn-outline-primary" >Register Now</button>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div class="d-flex justify-content-start mt-1" >
-  <button class="btn btn-primary ms-5" routerLink="">Go back</button>
-</div>
+<!--<div class="d-flex justify-content-start mt-1" >-->
+<!--  <button class="btn btn-primary ms-5" routerLink="">Go back</button>-->
+<!--</div>-->
 </div>

@@ -17,32 +17,50 @@ export class NavbarComponent implements OnInit {
   sidenav!: MatSidenav;
   isLoggedIn = false;
   userRole: any;
+
   constructor(
     public loginService: LoginService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.isLoggedIn = this.loginService.isLoggedIn();
     this.userRole = this.loginService.getUserRole();
   }
-  goToDashboard(){
+
+  goToDashboard() {
     if (this.loginService.getUserRole() == 'ADMIN') {
       this.router.navigate(['admin']);
     } else if (this.loginService.getUserRole() == 'STUDENT') {
       this.router.navigate(['student']);
 
-    }else if(this.loginService.getUserRole() == 'TRAINER'){
+    } else if (this.loginService.getUserRole() == 'TRAINER') {
       this.router.navigate(['trainer']);
-    }
-    else {
+    } else {
       this.logout();
     }
   }
 
   public logout() {
     this.loginService.logout();
-    this.isLoggedIn= false;
+    this.isLoggedIn = false;
     this.router.navigate(['login']);
   }
+
+
+  public Myprofile(): void {
+    if (this.loginService.getUserRole() == 'ADMIN') {
+      this.router.navigate(['adminProfile']);
+    } else if (this.loginService.getUserRole() == 'STUDENT') {
+      this.router.navigate(['studentProfile']);
+
+    } else if (this.loginService.getUserRole() == 'TRAINER') {
+      this.router.navigate(['trainerProfile']);
+    } else {
+      this.logout();
+    }
+  }
+
 }
+

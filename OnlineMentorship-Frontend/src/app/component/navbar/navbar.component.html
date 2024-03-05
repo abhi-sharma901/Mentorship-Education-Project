@@ -52,6 +52,11 @@
           </a>
         </li>
         <li class="nav-item ">
+          <a (click)="Myprofile()"
+             *ngIf="isLoggedIn" routerLink="" class="nav-link active">My profile
+          </a>
+        </li>
+        <li class="nav-item ">
         <a
           class="nav-link active"
           (click) = "logout()"
@@ -59,6 +64,7 @@
           Logout
         </a>
         </li>
+
       </ul>
 
     </div>
